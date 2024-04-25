@@ -57,33 +57,3 @@ nextMonthButton.addEventListener("click", () => {
 // Initial generation of calendar
 generateCalendar(currentMonth, currentYear);
 
-
-//pie chart
-
- // Ambil data jumlah anggota yang sudah bayar dan belum bayar
- var jumlahSudahBayar = document.querySelectorAll('.status.delivered').length;
- var jumlahBelumBayar = document.querySelectorAll('.status.cancelled').length;
-
- // Inisialisasi data untuk pie chart
- var data = {
-   labels: ['Sudah Bayar', 'Belum Bayar'],
-   datasets: [{
-     data: [jumlahSudahBayar, jumlahBelumBayar],
-     backgroundColor: ['#86e49d', '#d893a3']
-   }]
- };
-
- // Inisialisasi opsi untuk pie chart
- var options = {
-   responsive: true
- };
-
- // Dapatkan elemen canvas
- var ctx = document.getElementById('myPieChart').getContext('2d');
-
- // Buat pie chart
- var myPieChart = new Chart(ctx, {
-   type: 'pie',
-   data: data,
-   options: options
- });
