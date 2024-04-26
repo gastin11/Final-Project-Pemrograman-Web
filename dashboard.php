@@ -12,7 +12,7 @@
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
 
   <!-- Custom CSS -->
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="css/style.css">
 
 </head>
 <body>
@@ -59,7 +59,7 @@
         </a>
       </li>
       <li class="logout">
-        <a href="#" target="_blank">
+        <a href="logout.php">
           <span class="material-icons-outlined">exit_to_app</span> Logout
         </a>
       </li>
@@ -259,6 +259,6 @@
 
 </div>
 
-<script src="scripts.js"></script>
+<script src="js/scripts.js"></script>
 </body>
 </html>
