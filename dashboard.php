@@ -1,3 +1,21 @@
+<?php
+// Mulai session
+session_start();
+
+// Periksa apakah session nama_admin telah diset atau belum
+if (!isset($_SESSION['nama_admin'])) {
+    echo "<script>
+        alert('Lakukan Login Terlebih Dahulu');
+        document.location.href = 'login.php';
+        </script>";
+    exit;
+}
+
+// Ambil level pengguna dari sesi
+$level_admin = $_SESSION['level_admin'];
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,7 +30,7 @@
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
 
   <!-- Custom CSS -->
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/style-dashboard.css">
 
 </head>
 <body>
@@ -29,35 +47,50 @@
 
     <ul class="sidebar-list">
       <li class="sidebar-list-item dashboard">
-        <a href="#" target="_blank">
+        <a href="dashboard.php" target="_blank">
           <span class="material-icons-outlined">dashboard</span> Dashboard
         </a>
       </li>
+
+      <!-- Tampilkan menu Grup untuk Ketua -->
+      <?php if ($level_admin == 'ketua'): ?>
       <li class="sidebar-list-item grup">
-        <a href="#" target="_blank">
+        <a href="kelola_grup.php" target="_blank">
           <span class="material-icons-outlined">group</span> Kelola Grup
         </a>
       </li>
-      <li class="sidebar-list-item anggota">
-        <a href="#" target="_blank">
-          <span class="material-icons-outlined">person_add</span> Kelola Anggota
+      <li class="sidebar-list-item grup">
+        <a href="kelola_grup.php" target="_blank">
+          <span class="material-icons-outlined">person</span> Kelola Anggota
         </a>
       </li>
+      <?php endif; ?>
+
+      <!-- Tampilkan menu Pertemuan untuk Ketua dan Sekretaris -->
+      <?php if ($level_admin == 'ketua' || $level_admin == 'sekretaris'): ?>
       <li class="sidebar-list-item pertemuan">
-        <a href="#" target="_blank">
+        <a href="pertemuan.php" target="_blank">
           <span class="material-icons-outlined">event</span> Pertemuan
         </a>
       </li>
+      <?php endif; ?>
+
+      <!-- Tampilkan menu Pembayaran untuk Bendahara -->
+      <?php if ($level_admin == 'bendahara'|| $level_admin == 'ketua'): ?>
       <li class="sidebar-list-item pembayaran">
-        <a href="#" target="_blank">
+        <a href="pembayaran.php" target="_blank">
           <span class="material-icons-outlined">payments</span> Pembayaran
         </a>
       </li>
+      <?php endif; ?>
+      
+      <?php if ($level_admin == 'ketua' || $level_admin == 'sekretaris'): ?>
       <li class="sidebar-list-item laporan">
-        <a href="#" target="_blank">
+        <a href="laporan.php" target="_blank">
           <span class="material-icons-outlined">book</span> Laporan
         </a>
       </li>
+      <?php endif; ?>
       <li class="logout">
         <a href="logout.php">
           <span class="material-icons-outlined">exit_to_app</span> Logout
@@ -74,8 +107,15 @@
         <p class="header-title">Dashboard</p>
       </div>
       <div class="header-right">
-        <span class="material-icons-outlined">info</span>
-        <span class="material-icons-outlined">account_circle</span>
+      <?php
+      // Periksa apakah session nama_admin telah diset atau belum
+      if (isset($_SESSION['nama_admin'])) {
+          // Jika session sudah diset, tampilkan teks dengan username
+          echo '<span>' . $_SESSION['nama_admin'] . '</span>'; // Menampilkan username
+          echo '<span class="material-icons-outlined">account_circle</span>';
+          
+      }
+      ?>
       </div>
     </div>
   </header>
@@ -259,6 +299,6 @@
 
 </div>
 
-<script src="js/scripts.js"></script>
+<script src="js/scripts-dashboard.js"></script>
 </body>
 </html>

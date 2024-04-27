@@ -17,17 +17,18 @@ if(isset($_POST["login"])){
         $err .="Silahkan Masukkan Username dan Password Terlebih Dahulu!!</li>";
     }
     if(empty($err)){
-        $sql1 = "select * from tbl_admin where nama_admin = '$username'";
+        $sql1 = "SELECT * FROM admin WHERE nama_admin = '$username'";
         $q1 = mysqli_query($koneksi, $sql1);
         $r1 = mysqli_fetch_array($q1);
-        if($r1['password_admin'] !=md5($password)){
+        if(!$r1 || $r1['password'] != md5($password)){
             $err .= "Nama atau Password yang anda masukkan salah";
+        } else {
+            // Simpan informasi level pengguna ke dalam sesi
+            $_SESSION['nama_admin'] = $username;
+            $_SESSION['level_admin'] = $r1['level_admin'];
+            header("location:dashboard.php");
+            exit();
         }
-    }
-    if(empty($err)){
-        $_SESSION['nama_admin'] = $username;
-        header("location:dashboard.php");
-        exit();
     }
 }
 ?>
@@ -41,6 +42,7 @@ if(isset($_POST["login"])){
 
     <!-- css bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
 
 </head>
 <body>
@@ -80,12 +82,8 @@ if(isset($_POST["login"])){
 							    	</div>
 								</div>
 
-								<div class="d-flex align-items-center">
-									<div class="form-check">
-										<input type="checkbox" name="remember" id="remember" class="form-check-input">
-										<label for="remember" class="form-check-label">Remember Me</label>
-									</div>
-									<button type="submit" class="btn btn-primary ms-auto" name="login" value="Masuk Ke Sistem">
+								<div class="align-items-center">
+									<button type="submit" class="btn btn-primary ms-auto w-100" name="login" value="Masuk Ke Sistem">
 										Login
 									</button>
 								</div>
