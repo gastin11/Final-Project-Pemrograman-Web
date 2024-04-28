@@ -57,3 +57,5 @@ nextMonthButton.addEventListener("click", () => {
 // Initial generation of calendar
 generateCalendar(currentMonth, currentYear);
 
+
+

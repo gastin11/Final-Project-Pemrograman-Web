@@ -38,7 +38,7 @@ $level_admin = $_SESSION['level_admin'];
 <div class="grid-container">
 
   <!-- Sidebar -->
-  <aside id="sidebar">
+  <aside id="sidebar" class="sidebar">
     <div class="sidebar-title">
       <div class="sidebar-brand">
         <span class="material-icons-outlined">groups</span> Website Arisan
