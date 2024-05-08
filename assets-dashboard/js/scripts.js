@@ -50,7 +50,7 @@ window.addEventListener('DOMContentLoaded', event => {
         
         // Tombol Previous
         var prevButton = document.createElement("button");
-        prevButton.className = "btn btn-sm btn-secondary me-2";
+        prevButton.className = "btn btn-sm btn-primary me-2";
         prevButton.innerHTML = "<i class='fas fa-chevron-left'></i>";
         prevButton.addEventListener("click", function () {
             month -= 1;
@@ -69,7 +69,7 @@ window.addEventListener('DOMContentLoaded', event => {
 
         // Tombol Next
         var nextButton = document.createElement("button");
-        nextButton.className = "btn btn-sm btn-secondary ms-2";
+        nextButton.className = "btn btn-sm btn-primary ms-2";
         nextButton.innerHTML = "<i class='fas fa-chevron-right'></i>";
         nextButton.addEventListener("click", function () {
             month += 1;
@@ -85,7 +85,7 @@ window.addEventListener('DOMContentLoaded', event => {
 
         // Membuat tabel untuk menampilkan kalender
         var table = document.createElement("table");
-        table.className = "table table-bordered";
+        table.classList.add("table", "table-info", "table-striped");
 
         // Membuat baris untuk nama-nama hari
         var headerRow = document.createElement("tr");

@@ -1,5 +1,10 @@
 <?php
 session_start();
+
+// Atur waktu kedaluwarsa sesi ke 3 menit
+$_SESSION['expire_time'] = time() + (5 * 60);
+
+
 if (isset($_SESSION['nama_admin'])){
     header("location:dashboard.php");
     exit();
@@ -54,6 +59,7 @@ if(isset($_POST["login"])){
 				<div class="col-xxl-4 col-xl-5 col-lg-5 col-md-7 col-sm-9">
 					<div class="text-center my-5">
 						<img src="asset-login/logo-login.png" alt="logo" width="100">
+						<h1 class="fs-4 card-title fw-bold mt-2">Website Arisan</h1>
 					</div>
 					<div class="card shadow-lg">
 						<div class="card-body p-5">
@@ -89,11 +95,11 @@ if(isset($_POST["login"])){
 								</div>
 							</form>
 						</div>
-						<div class="card-footer py-3 border-0">
+						<!-- <div class="card-footer py-3 border-0">
 							<div class="text-center">
-								Tidak Punya Akun? <a href="register.html" class="text-dark">Buat Akun Anda</a>
+								Lupa Password? <a href="register.html" class="text-dark">Ganti Password Anda</a>
 							</div>
-						</div>
+						</div> -->
 					</div>
 					<div class="text-center mt-5 text-muted">
 						Copyright &copy; 2024 &mdash; Kelompok 1 Paralel F 

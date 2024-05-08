@@ -1,6 +1,18 @@
 <?php
-// Mulai session
 session_start();
+
+if (isset($_SESSION['expire_time']) && $_SESSION['expire_time'] < time()) {
+    session_unset();
+    session_destroy();
+    header('location: login.php');
+    exit;
+} else {
+    $_SESSION['expire_time'] = time() + (5 * 60);
+}
+
+
+include_once("koneksi.php");
+
 
 // Periksa apakah session nama_admin telah diset atau belum
 if (!isset($_SESSION['nama_admin'])) {
@@ -38,7 +50,11 @@ $level_admin = $_SESSION['level_admin'];
             <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
             <!-- Navbar Text-->
             <span class="navbar-text ms-auto me-3 my-2 my-md-0">
-                Nama
+            <?php
+                if (isset($_SESSION['nama_admin'])) {
+                    echo $_SESSION['nama_admin']; 
+                }
+            ?>
             </span>
             <!-- Navbar-->
             <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
@@ -63,17 +79,17 @@ $level_admin = $_SESSION['level_admin'];
                                 Dashboard
                             </a>
                             <?php if ($level_admin == 'ketua'): ?>
-                            <a class="nav-link" href="kelolagrup.php">
-                                <div class="sb-nav-link-icon"><i class="fas fa-users"></i></div>
-                                Kelola Grup
-                            </a>
                             <a class="nav-link" href="kelolaanggota.php">
                                 <div class="sb-nav-link-icon"><i class="fas fa-user-friends"></i></div>
                                 Kelola Anggota
                             </a>
+                            <a class="nav-link" href="kelolagrup.php">
+                                <div class="sb-nav-link-icon"><i class="fas fa-users"></i></div>
+                                Kelola Grup
+                            </a>
                             <?php endif; ?>
                             <?php if ($level_admin == 'ketua' || $level_admin == 'sekretaris'): ?>
-                            <a class="nav-link" href="#">
+                            <a class="nav-link" href="./pertemuan.php">
                                 <div class="sb-nav-link-icon"><i class="fas fa-handshake"></i></div>
                                 Pertemuan
                             </a>
@@ -95,10 +111,8 @@ $level_admin = $_SESSION['level_admin'];
                     <div class="sb-sidenav-footer">
                         <div class="small">Logged in as:</div>
                         <?php
-                        // Periksa apakah session nama_admin telah diset atau belum
-                        if (isset($_SESSION['nama_admin'])) {
-                            // Jika session sudah diset, tampilkan teks dengan username
-                            echo $_SESSION['nama_admin']; // Menampilkan username
+                        if (isset($_SESSION['level_admin'])) {
+                            echo $_SESSION['level_admin']; 
                         }
                         ?>
                     </div>
@@ -114,58 +128,56 @@ $level_admin = $_SESSION['level_admin'];
                         <div class="row">
                             <div class="col-xl-3 col-md-6">
                                 <div class="card bg-primary text-white mb-4">
-                                    <div class="card-body">
-                                        <div class="d-flex justify-content-between align-items-center">
-                                            <div><i class="fas fa-user-friends"></i> Anggota</div>
-                                            <div class="font-weight-bold">80</div>
-                                        </div>
+                                    <div class="card-body"><i class="fas fa-user-friends"></i>
+                                        Anggota
+                                        <?php 
+                                        
+                                        $dash_anggota_query = "SELECT * FROM tb_anggota";
+                                        $dash_anggota_query_run = mysqli_query($koneksi, $dash_anggota_query);
+
+                                        if($total_anggota = mysqli_num_rows($dash_anggota_query_run)){
+                                            echo'<h4 class="mb-0 mt-3"> '.$total_anggota.' </h4>';
+                                        } else {
+                                            echo '<h4 class="mb-0 mt-3">Tidak ada data</h4>';
+                                        }
+
+                                        ?>
                                     </div>
-                                    <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <a class="small text-white stretched-link" href="#">Lihat Detail</a>
-                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
-                                    </div>
+                                    
                                 </div>
                             </div>
                             <div class="col-xl-3 col-md-6">
                                 <div class="card bg-warning text-white mb-4">
                                     <div class="card-body">
-                                        <div class="d-flex justify-content-between align-items-center">
-                                            <div><i class="fas fa-users"></i> Grup Arisan</div>
-                                            <div class="font-weight-bold">2</div> 
-                                        </div>
-                                    </div>
-                                    <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <a class="small text-white stretched-link" href="#">Lihat Detail</a>
-                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                                        <i class="fas fa-users"></i> Grup Arisan
+                                        <h4 class="mb-0 mt-3">0</h4>     
                                     </div>
                                 </div>
-                                
                             </div>
                             <div class="col-xl-3 col-md-6">
                                 <div class="card bg-success text-white mb-4">
                                     <div class="card-body">
-                                        <div class="d-flex justify-content-between align-items-center">
-                                            <div><i class="fas fa-handshake"></i> Pertemuan Arisan</div>
-                                            <div class="font-weight-bold">5</div> 
-                                        </div>
-                                    </div>
-                                    <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <a class="small text-white stretched-link" href="#">Lihat Detail</a>
-                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                                        <i class="fas fa-handshake"></i> Pertemuan Arisan
+                                        <?php 
+                                        
+                                        $dash_pertemuan_query = "SELECT * FROM tb_pertemuan";
+                                        $dash_pertemuan_query_run = mysqli_query($koneksi, $dash_pertemuan_query);
+
+                                        if($total_pertemuan = mysqli_num_rows($dash_pertemuan_query_run)){
+                                            echo'<h4 class="mb-0 mt-3"> '.$total_pertemuan.' </h4>';
+                                        } else {
+                                            echo '<h4 class="mb-0 mt-3">Tidak ada data</h4>';
+                                        }
+
+                                        ?>   
                                     </div>
                                 </div>
                             </div>
                             <div class="col-xl-3 col-md-6">
                                 <div class="card bg-danger text-white mb-4">
                                     <div class="card-body">
-                                        <div class="d-flex justify-content-between align-items-center">
-                                            <div><i class="fas fa-money-check-alt"></i> Pembayaran</div>
-                                            <div class="font-weight-bold">20</div> 
-                                        </div>
-                                    </div>
-                                    <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <a class="small text-white stretched-link" href="#">Lihat Detail</a>
-                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                                        <i class="fas fa-money-check-alt"></i> Pembayaran
+                                        <h4 class="mb-0 mt-3">0</h4>
                                     </div>
                                 </div>
                             </div>
@@ -179,9 +191,9 @@ $level_admin = $_SESSION['level_admin'];
                                     </div>
                                     <div id="calendar" class="card-body">
                                         <div class="d-flex justify-content-center align-items-center">
-                                            <button id="prevBtn" class="btn btn-sm btn-secondary me-2"><i class="fas fa-chevron-left"></i></button>
+                                            <button id="prevBtn" class="btn btn-sm btn-primary me-2"><i class="fas fa-chevron-left"></i></button>
                                             <h2 id="monthYearText"></h2>
-                                            <button id="nextBtn" class="btn btn-sm btn-secondary ms-2"><i class="fas fa-chevron-right"></i></button>
+                                            <button id="nextBtn" class="btn btn-sm btn-primary ms-2"><i class="fas fa-chevron-right"></i></button>
                                         </div>
                                     </div>
                                     
@@ -203,7 +215,7 @@ $level_admin = $_SESSION['level_admin'];
                                 Tabel Informasi Anggota
                             </div>
                             <div class="card-body">
-                                <table id="datatablesSimple">
+                                <table id="datatablesSimple" class="table table-info table-striped">
                                     <thead>
                                         <tr>
                                             <th>ID</th>
