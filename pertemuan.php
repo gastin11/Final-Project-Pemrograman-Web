@@ -219,6 +219,7 @@ $level_admin = $_SESSION['level_admin'];
                                 <table id="datatablesSimple" class="table table-info table-striped">
                                     <thead>
                                         <tr>
+                                            <th>No</th>
                                             <th>ID</th>
                                             <th>Lokasi</th>
                                             <th>Tanggal</th>
@@ -228,6 +229,7 @@ $level_admin = $_SESSION['level_admin'];
                                     </thead>
                                     <tfoot>
                                         <tr>
+                                            <th>No</th>
                                             <th>ID</th>
                                             <th>Lokasi</th>
                                             <th>Tanggal</th>
@@ -244,6 +246,7 @@ $level_admin = $_SESSION['level_admin'];
                                     ?>
                                         <tr>
                                             <td><?php echo $no++ ?></td>
+                                            <td><?php echo $data['id_pertemuan'] ?></td>
                                             <td><?php echo $data['lokasi']?></td>
                                             <td><?php echo date('d-m-Y', strtotime($data['tanggal'])) ?></td>
                                             <td><?php echo $data['jam'] ?></td>

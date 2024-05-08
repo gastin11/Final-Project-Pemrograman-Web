@@ -6,7 +6,18 @@
         $jam = $_POST['tjam'];
 
         if(isset($_POST["btnsimpan"])){
-            $simpan = mysqli_query($koneksi, "INSERT INTO tb_pertemuan (lokasi,tanggal,jam) VALUE ('$lokasi','$tanggal','$jam')");
+            $query_id = "SELECT max(id_pertemuan) as maxKode FROM tb_pertemuan";
+            $hasil_id = mysqli_query($koneksi, $query_id);
+            $data_id = mysqli_fetch_array($hasil_id);
+
+            $maxkode = $data_id['maxKode'];
+            $nourut = (int) substr($maxkode, 3);
+
+            $nourut++;
+            $char = date("ymd");
+            $kodejadi = $char . sprintf("%03s", $nourut);
+
+            $simpan = mysqli_query($koneksi, "INSERT INTO tb_pertemuan (id_pertemuan,lokasi,tanggal,jam) VALUE ('$kodejadi','$lokasi','$tanggal','$jam')");
 
             if($simpan){
                 echo "<script>

@@ -216,7 +216,7 @@ $level_admin = $_SESSION['level_admin'];
                                     ?>
                                         <tr>
                                             <td><?php echo $no++ ?></td>
-                                            <td></td>
+                                            <td><?php echo $data['id_anggota'] ?></td>
                                             <td><?php echo $data['nama']?></td>
                                             <td><?php echo $data['noTelpon'] ?></td>
                                             <td><?php echo $data['email'] ?></td>

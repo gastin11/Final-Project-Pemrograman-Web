@@ -6,7 +6,18 @@
         $email = $_POST['temail'];
 
         if(isset($_POST["btnsimpan"])){
-            $simpan = mysqli_query($koneksi, "INSERT INTO tb_anggota (nama,noTelpon,email) VALUE ('$nama','$notelp','$email')");
+            $query_id = "SELECT max(id_anggota) as maxKode FROM tb_anggota";
+            $hasil_id = mysqli_query($koneksi, $query_id);
+            $data_id = mysqli_fetch_array($hasil_id);
+
+            $maxkode = $data_id['maxKode'];
+            $nourut = (int) substr($maxkode, 3);
+
+            $nourut++;
+            $char = 'AGT';
+            $kodejadi = $char . sprintf("%03s", $nourut);
+
+            $simpan = mysqli_query($koneksi, "INSERT INTO tb_anggota (id_anggota,nama,noTelpon,email) VALUE ('$kodejadi','$nama','$notelp','$email')");
 
             if($simpan){
                 echo "<script>
