@@ -11,7 +11,7 @@
             $data_id = mysqli_fetch_array($hasil_id);
 
             $maxkode = $data_id['maxKode'];
-            $nourut = (int) substr($maxkode, 3);
+            $nourut = (int) substr($maxkode, 6);
 
             $nourut++;
             $char = date("ymd");

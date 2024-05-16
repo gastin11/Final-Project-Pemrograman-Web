@@ -87,10 +87,10 @@ $level_admin = $_SESSION['level_admin'];
                                 <div class="sb-nav-link-icon"><i class="fas fa-user-friends"></i></div>
                                 Kelola Anggota
                             </a>
-                            <a class="nav-link" href="kelolagrup.php">
+                            <!-- <a class="nav-link" href="kelolagrup.php">
                                 <div class="sb-nav-link-icon"><i class="fas fa-users"></i></div>
                                 Kelola Grup
-                            </a>
+                            </a> -->
                             <?php endif; ?>
                             <?php if ($level_admin == 'ketua' || $level_admin == 'sekretaris'): ?>
                             <a class="nav-link" href="./pertemuan.php">

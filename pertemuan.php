@@ -65,7 +65,7 @@ $level_admin = $_SESSION['level_admin'];
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="#!">Settings</a></li>
+                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#modaltambahakun">Pengaturan</a></li>
                         <li><hr class="dropdown-divider" /></li>
                         <li><a class="dropdown-item" href="logout.php">Logout</a></li>
                     </ul>
@@ -87,13 +87,13 @@ $level_admin = $_SESSION['level_admin'];
                                 <div class="sb-nav-link-icon"><i class="fas fa-user-friends"></i></div>
                                 Kelola Anggota
                             </a>
-                            <a class="nav-link" href="kelolagrup.php">
+                            <!-- <a class="nav-link" href="kelolagrup.php">
                                 <div class="sb-nav-link-icon"><i class="fas fa-users"></i></div>
                                 Kelola Grup
-                            </a>
+                            </a> -->
                             <?php endif; ?>
                             <?php if ($level_admin == 'ketua' || $level_admin == 'sekretaris'): ?>
-                            <a class="nav-link" href="#">
+                            <a class="nav-link" href="./pertemuan.php">
                                 <div class="sb-nav-link-icon"><i class="fas fa-handshake"></i></div>
                                 Pertemuan
                             </a>
@@ -166,8 +166,50 @@ $level_admin = $_SESSION['level_admin'];
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                             </div>
 
-                                            <form method="POST" action="crudpertemuan.php">
+                                            <form method="POST" action="">
                                             <div class="modal-body">
+                                            <?php
+                                            // Memeriksa apakah tombol "Simpan" ditekan
+                                            if(isset($_POST["btnsimpan"])) {
+                                                // Memeriksa apakah ada input yang kosong
+                                                if(empty($_POST['tlokasi']) || empty($_POST['ttanggal']) || empty($_POST['tjam'])) {
+                                                    echo '<div class="alert alert-danger" role="alert">
+                                                        Isi semua textbox!
+                                                    </div>';
+                                                } else {
+                                                    $lokasi = $_POST['tlokasi'];
+                                                    $tanggal = $_POST['ttanggal'];
+                                                    $jam = $_POST['tjam'];
+
+                                                    if(isset($_POST["btnsimpan"])){
+                                                        $query_id = "SELECT max(id_pertemuan) as maxKode FROM tb_pertemuan";
+                                                        $hasil_id = mysqli_query($koneksi, $query_id);
+                                                        $data_id = mysqli_fetch_array($hasil_id);
+
+                                                        $maxkode = $data_id['maxKode'];
+                                                        $nourut = (int) substr($maxkode, 6);
+
+                                                        $nourut++;
+                                                        $char = date("ymd");
+                                                        $kodejadi = $char . sprintf("%03s", $nourut);
+
+                                                        $simpan = mysqli_query($koneksi, "INSERT INTO tb_pertemuan (id_pertemuan,lokasi,tanggal,jam) VALUE ('$kodejadi','$lokasi','$tanggal','$jam')");
+
+                                                        if($simpan){
+                                                            echo "<script>
+                                                                    alert('Data berhasil di simpan')
+                                                                    document.location='pertemuan.php';
+                                                                </script>";
+                                                        }else{
+                                                            echo "<script>
+                                                                    alert('Data berhasil di simpan')
+                                                                    document.location='pertemuan.php';
+                                                                </script>";
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                            ?>
                                                 <div class="mb-3">
                                                     <label for="exampleFormControlInput1" class="form-label">Lokasi</label>
                                                     <input type="text" class="form-control" id="exampleFormControlInput1" name="tlokasi" placeholder="Masukkan lokasi pertemuan">
@@ -189,9 +231,8 @@ $level_admin = $_SESSION['level_admin'];
                                         </div>
                                     </div>
                                 </div>
-                                <!-- AKhir Modal Tambah -->
+                                <!-- Akhir Modal Tambah -->
 
-                                <!-- Modal Hapus Semua Data -->
                                 <!-- Modal Hapus Semua Data -->
                                 <div class="modal fade" id="modalhapussemua" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                                     <div class="modal-dialog">
@@ -212,8 +253,6 @@ $level_admin = $_SESSION['level_admin'];
                                         </div>
                                     </div>
                                 </div>
-                                <!-- AKhir Modal Hapus Semua Data -->
-
                                 <!-- AKhir Modal Hapus Semua Data -->
 
                                 <table id="datatablesSimple" class="table table-info table-striped">

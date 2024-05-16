@@ -48,6 +48,10 @@ if(isset($_POST["login"])){
     <!-- css bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
+	<!-- Font Awesome -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+
 
 </head>
 <body>
@@ -73,20 +77,25 @@ if(isset($_POST["login"])){
                             
                             ?>
 							<form action="" method="POST" class="needs-validation" novalidate="" autocomplete="off">
-								<div class="mb-3">
-									<label class="mb-2 text-muted" for="username">Nama</label>
+							<div class="mb-3">
+								<label class="mb-2 text-muted" for="username">Nama</label>
+								<div class="input-group">
+									<span class="input-group-text"><i class="fas fa-user"></i></span>
 									<input id="username" type="text" class="form-control" name="username" value="<?php echo $username?>" required autofocus>
 								</div>
+							</div>
 
-								<div class="mb-3">
-									<div class="mb-2 w-100">
-										<label class="text-muted" for="password">Password</label>
+							<div class="mb-3">
+								<div class="mb-2 w-100">
+									<label class="text-muted" for="password">Password</label>
+									<div class="input-group">
+										<span class="input-group-text"><i class="fas fa-lock"></i></span>
+										<input id="password" type="password" class="form-control input" name="password" required>
+										<span class="input-group-text"><i class="fas fa-eye" id="showPassword"></i></span>
 									</div>
-									<input id="password" type="password" class="form-control input" name="password" required>
-								    <div class="invalid-feedback">
-								    	Password is required
-							    	</div>
 								</div>
+							</div>
+
 
 								<div class="align-items-center">
 									<button type="submit" class="btn btn-primary ms-auto w-100" name="login" value="Masuk Ke Sistem">
@@ -108,6 +117,22 @@ if(isset($_POST["login"])){
 			</div>
 		</div>
 	</section>
+
+
+<script>
+    document.getElementById("showPassword").addEventListener("click", function() {
+        var passwordInput = document.getElementById("password");
+        if (passwordInput.type === "password") {
+            passwordInput.type = "text";
+            this.classList.remove("fa-eye");
+            this.classList.add("fa-eye-slash");
+        } else {
+            passwordInput.type = "password";
+            this.classList.remove("fa-eye-slash");
+            this.classList.add("fa-eye");
+        }
+    });
+</script>
 
 
 <!-- js bootstrap -->

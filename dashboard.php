@@ -83,10 +83,10 @@ $level_admin = $_SESSION['level_admin'];
                                 <div class="sb-nav-link-icon"><i class="fas fa-user-friends"></i></div>
                                 Kelola Anggota
                             </a>
-                            <a class="nav-link" href="kelolagrup.php">
+                            <!-- <a class="nav-link" href="kelolagrup.php">
                                 <div class="sb-nav-link-icon"><i class="fas fa-users"></i></div>
                                 Kelola Grup
-                            </a>
+                            </a> -->
                             <?php endif; ?>
                             <?php if ($level_admin == 'ketua' || $level_admin == 'sekretaris'): ?>
                             <a class="nav-link" href="./pertemuan.php">
@@ -203,7 +203,7 @@ $level_admin = $_SESSION['level_admin'];
                                 <div class="card mb-4">
                                     <div class="card-header">
                                         <i class="fas fa-chart-bar me-1"></i>
-                                        ppppppp
+                                        Chart Pembayaran
                                     </div>
                                     <div class="card-body"><canvas id="myBarChart" width="100%" height="40"></canvas></div>
                                 </div>
