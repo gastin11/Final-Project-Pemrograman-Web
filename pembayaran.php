@@ -1,8 +1,8 @@
 <?php
 
 include_once ("koneksi.php");
-$query= "SELECT * FROM tb_anggota";
-$hasil = mysqli_query ($koneksi, $query);
+$query = "SELECT * FROM tb_pembayaran";
+$hasil = mysqli_query($koneksi, $query);
 
 // Mulai session
 session_start();
@@ -38,7 +38,7 @@ $level_admin = $_SESSION['level_admin'];
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>Kelola Anggota</title>
+        <title>Pembayaran</title>
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
         <link href="assets-dashboard/css/styles.css" rel="stylesheet" />
         <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
@@ -53,10 +53,8 @@ $level_admin = $_SESSION['level_admin'];
             <!-- Navbar Text-->
             <span class="navbar-text ms-auto me-3 my-2 my-md-0">
                 <?php
-                    // Periksa apakah session level_admin telah diset atau belum
                     if (isset($_SESSION['nama_admin'])) {
-                            // Jika session sudah diset, tampilkan teks dengan level admin
-                            echo $_SESSION['nama_admin']; 
+                        echo $_SESSION['nama_admin']; 
                     }
                 ?>
             </span>
@@ -87,10 +85,6 @@ $level_admin = $_SESSION['level_admin'];
                                 <div class="sb-nav-link-icon"><i class="fas fa-user-friends"></i></div>
                                 Kelola Anggota
                             </a>
-                            <!-- <a class="nav-link" href="kelolagrup.php">
-                                <div class="sb-nav-link-icon"><i class="fas fa-users"></i></div>
-                                Kelola Grup
-                            </a> -->
                             <?php endif; ?>
                             <?php if ($level_admin == 'ketua' || $level_admin == 'sekretaris'): ?>
                             <a class="nav-link" href="./pertemuan.php">
@@ -115,9 +109,7 @@ $level_admin = $_SESSION['level_admin'];
                     <div class="sb-sidenav-footer">
                         <div class="small">Logged in as:</div>
                         <?php
-                        // Periksa apakah session level_admin telah diset atau belum
                         if (isset($_SESSION['level_admin'])) {
-                            // Jika session sudah diset, tampilkan teks dengan level admin
                             echo $_SESSION['level_admin']; 
                         }
                         ?>
@@ -126,10 +118,10 @@ $level_admin = $_SESSION['level_admin'];
             </div>
             <div id="layoutSidenav_content">
                 <main>
-                <div class="container-fluid px-4">
-                        <h1 class="mt-4">Kelola Anggota</h1>
+                    <div class="container-fluid px-4">
+                        <h1 class="mt-4">Pembayaran</h1>
                         <ol class="breadcrumb mb-4">
-                            <li class="breadcrumb-item active">Kelola Anggota</li>
+                            <li class="breadcrumb-item active">Pembayaran</li>
                         </ol>
                         
                         <div class="card mb-4">
@@ -137,19 +129,15 @@ $level_admin = $_SESSION['level_admin'];
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div>
                                         <i class="fas fa-table me-1"></i>
-                                        Tabel Anggota
+                                        Tabel Pembayaran
                                     </div>
                                 </div>
-                                
                             </div>
 
-                            
-
-                            
                             <div class="card-body">
                                 <!-- Button trigger modal -->
                                 <button type="button" class="btn btn-primary d-block mb-3" data-bs-toggle="modal" data-bs-target="#modaltambah">
-                                    <i class="fas fa-plus me-1"></i> Tambah Anggota
+                                    <i class="fas fa-plus me-1"></i> Tambah Pembayaran
                                 </button>
 
                                 <!-- Modal Tambah -->
@@ -157,29 +145,27 @@ $level_admin = $_SESSION['level_admin'];
                                     <div class="modal-dialog modal-dialog-centered">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h1 class="modal-title fs-5" id="staticBackdropLabel"><i class="fas fa-user-friends"></i>Tambah Anggota</h1>
+                                                <h1 class="modal-title fs-5" id="staticBackdropLabel"><i class="fas fa-money-check-alt"></i> Tambah Pembayaran</h1>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                             </div>
-
-                                            <form method="POST" action="./crudanggota.php">
-                                            <div class="modal-body">
-                                                <div class="mb-3">
-                                                    <label for="exampleFormControlInput1" class="form-label">Nama</label>
-                                                    <input type="text" class="form-control" id="exampleFormControlInput1" name="tnama" placeholder="Masukkan Nama">
+                                            <form method="POST" action="./crudpembayaran.php">
+                                                <div class="modal-body">
+                                                    <div class="mb-3">
+                                                        <select class="form-select" id="inputGroupSelect01" name="tanggal">
+                                                            <option selected>--Pilih tanggal pertemuan--</option>
+                                                            <?php 
+                                                            $queryPertemuan = mysqli_query($koneksi, "SELECT * FROM tb_pertemuan") or die(mysqli_error($koneksi));
+                                                            while($dataPertemuan = mysqli_fetch_array($queryPertemuan)){
+                                                                echo "<option value='{$dataPertemuan['id_pertemuan']}'>{$dataPertemuan['tanggal']}</option>";
+                                                            }
+                                                            ?>
+                                                        </select>
+                                                    </div>
                                                 </div>
-                                                <div class="mb-3">
-                                                    <label for="exampleFormControlInput1" class="form-label">Nomor Telepon</label>
-                                                    <input type="text" class="form-control" id="exampleFormControlInput1" name="tnotelp" placeholder="Masukkan No.Telpon">
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Tutup</button>
+                                                    <button type="submit" class="btn btn-primary" name="btnsimpan">Simpan</button>
                                                 </div>
-                                                <div class="mb-3">
-                                                    <label for="exampleFormControlInput1" class="form-label">Email</label>
-                                                    <input type="email" class="form-control" id="exampleFormControlInput1" name="temail" placeholder="Masukkan Email">
-                                                </div>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Tutup</button>
-                                                <button type="submit" class="btn btn-primary" name="btnsimpan">Simpan</button>
-                                            </div>
                                             </form>
                                         </div>
                                     </div>
@@ -191,9 +177,8 @@ $level_admin = $_SESSION['level_admin'];
                                         <tr>
                                             <th>No</th>
                                             <th>ID</th>
-                                            <th>Nama</th>
-                                            <th>No.Telpon</th>
-                                            <th>Email</th>
+                                            <th>Tanggal</th>
+                                            <th>Jumlah Pembayaran</th>
                                             <th>Aksi</th>
                                         </tr>
                                     </thead>
@@ -201,103 +186,90 @@ $level_admin = $_SESSION['level_admin'];
                                         <tr>
                                             <th>No</th>
                                             <th>ID</th>
-                                            <th>Nama</th>
-                                            <th>No.Telpon</th>
-                                            <th>Email</th>
+                                            <th>Tanggal</th>
+                                            <th>Jumlah Pembayaran</th>
                                             <th>Aksi</th>
                                         </tr>
-
-                                    </tfoot>                                    
+                                    </tfoot>
                                     <tbody>
-                                    <?php 
-                                    $no = 1;
-                                    $tampil = mysqli_query($koneksi,"SELECT * FROM tb_anggota ORDER BY id_anggota");
-                                    while ($data = mysqli_fetch_array($tampil)): 
-                                    ?>
+                                        <?php 
+                                        $no = 1;
+                                        $tampil = mysqli_query($koneksi, "SELECT * FROM tb_pembayaran ORDER BY id_pembayaran");
+                                        while ($data = mysqli_fetch_array($tampil)): 
+                                        ?>
                                         <tr>
                                             <td><?php echo $no++ ?></td>
-                                            <td><?php echo $data['id_anggota'] ?></td>
-                                            <td><?php echo $data['nama']?></td>
-                                            <td><?php echo $data['noTelpon'] ?></td>
-                                            <td><?php echo $data['email'] ?></td>
+                                            <td><?php echo $data['id_pembayaran'] ?></td>
+                                            <td><?php echo $data['tanggal'] ?></td>
+                                            <td><?php echo $data['jumlah_pembayaran'] ?></td>
                                             <td>
-                                                <a href="#" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#modaledit<?php echo $data['id_anggota']; ?>">
+                                                <a href="#" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#modaledit<?php echo $data['id_pembayaran']; ?>">
                                                     <i class="fas fa-edit"></i> Edit
                                                 </a>
-                                                <a href="#" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalhapus<?php echo $data['id_anggota']; ?>">
+                                                <a href="#" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalhapus<?php echo $data['id_pembayaran']; ?>">
                                                     <i class="fas fa-trash-alt"></i> Hapus
                                                 </a>
                                             </td>
                                         </tr>
 
                                         <!-- Awal Modal Edit -->
-                                        <div class="modal fade" id="modaledit<?php echo $data['id_anggota']; ?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                        <div class="modal fade" id="modaledit<?php echo $data['id_pembayaran']; ?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                                             <div class="modal-dialog modal-dialog-centered">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
-                                                        <h1 class="modal-title fs-5" id="staticBackdropLabel"><i class="fas fa-edit"></i>Edit Anggota</h1>
+                                                        <h1 class="modal-title fs-5" id="staticBackdropLabel"><i class="fas fa-edit"></i> Edit Pembayaran</h1>
                                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                     </div>
-
-                                                    <form method="POST" action="crudanggota.php">
-                                                    <input type="hidden" name="id_anggota" value="<?php echo $data['id_anggota'] ?>">
-                                                    <div class="modal-body">
-                                                        <div class="mb-3">
-                                                            <label for="exampleFormControlInput1" class="form-label">Nama</label>
-                                                            <input type="text" class="form-control" id="exampleFormControlInput1" name="tnama" value="<?php echo $data['nama'] ?>" placeholder="Masukkan Nama">
+                                                    <form method="POST" action="crudpembayaran.php">
+                                                        <input type="hidden" name="id_pembayaran" value="<?php echo $data['id_pembayaran'] ?>">
+                                                        <div class="modal-body">
+                                                            <div class="mb-3">
+                                                                <label for="tanggal" class="form-label">Tanggal</label>
+                                                                <input type="date" class="form-control" id="tanggal" name="tanggal" value="<?php echo $data['tanggal'] ?>" placeholder="Masukkan Tanggal">
+                                                            </div>
+                                                            <div class="mb-3">
+                                                                <label for="jumlah_pembayaran" class="form-label">Jumlah Pembayaran</label>
+                                                                <input type="number" class="form-control" id="jumlah_pembayaran" name="jumlah_pembayaran" value="<?php echo $data['jumlah_pembayaran'] ?>" placeholder="Masukkan Jumlah Pembayaran">
+                                                            </div>
                                                         </div>
-                                                        <div class="mb-3">
-                                                            <label for="exampleFormControlInput1" class="form-label">Nomor Telepon</label>
-                                                            <input type="text" class="form-control" id="exampleFormControlInput1" name="tnotelp"value="<?php echo $data['noTelpon'] ?>" placeholder="Masukkan No.Telpon">
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Tutup</button>
+                                                            <button type="submit" class="btn btn-primary" name="btnedit">Ubah</button>
                                                         </div>
-                                                        <div class="mb-3">
-                                                            <label for="exampleFormControlInput1" class="form-label">Email</label>
-                                                            <input type="email" class="form-control" id="exampleFormControlInput1" name="temail" value="<?php echo $data['email'] ?>" placeholder="Masukkan Email">
-                                                        </div>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Tutup</button>
-                                                        <button type="submit" class="btn btn-primary" name="btnedit">Ubah</button>
-                                                    </div>
                                                     </form>
                                                 </div>
                                             </div>
                                         </div>
-                                        <!-- AKhir Modal Edit-->
+                                        <!-- AKhir Modal Edit -->
 
                                         <!-- Awal Modal Hapus -->
-                                        <div class="modal fade" id="modalhapus<?php echo $data['id_anggota']; ?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                        <div class="modal fade" id="modalhapus<?php echo $data['id_pembayaran']; ?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                                             <div class="modal-dialog">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
-                                                        <h1 class="modal-title fs-5" id="staticBackdropLabel"><i class="fas fa-trash-alt"></i>Konfirmasi Hapus Anggota</h1>
+                                                        <h1 class="modal-title fs-5" id="staticBackdropLabel"><i class="fas fa-trash-alt"></i> Konfirmasi Hapus Pembayaran</h1>
                                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                     </div>
-
-                                                    <form method="POST" action="crudanggota.php">
-                                                    <input type="hidden" name="id_anggota" value="<?php echo $data['id_anggota'] ?>">
-                                                    <div class="modal-body">
-                                                        <h5 class="text-center">Apakah anda yakin ingin menghapus data ini?<br>
-                                                        <span class="text-danger"><?php echo $data['nama'] ?> </span>
-                                                        </h5>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="submit" class="btn btn-danger" name="btnhapus">Hapus</button>
-                                                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Tidak</button>
-                                                    </div>
+                                                    <form method="POST" action="crudpembayaran.php">
+                                                        <input type="hidden" name="id_pembayaran" value="<?php echo $data['id_pembayaran'] ?>">
+                                                        <div class="modal-body">
+                                                            <h5 class="text-center">Apakah anda yakin ingin menghapus data ini?<br>
+                                                            <span class="text-danger"><?php echo $data['id_pembayaran'] ?></span>
+                                                            </h5>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="submit" class="btn btn-danger" name="btnhapus">Hapus</button>
+                                                            <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Tidak</button>
+                                                        </div>
                                                     </form>
                                                 </div>
                                             </div>
                                         </div>
-                                        <!-- AKhir Modal Hapus-->
+                                        <!-- AKhir Modal Hapus -->
 
-                                    <?php endwhile; ?>    
+                                        <?php endwhile; ?>    
                                     </tbody>
-
-
                                 </table>
-                                </div>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -313,9 +285,6 @@ $level_admin = $_SESSION['level_admin'];
         </div>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
         <script src="assets-dashboard/js/scripts.js"></script>
-        <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
-        <script src="assets/demo/chart-area-demo.js"></script>
-        <script src="assets/demo/chart-bar-demo.js"></script> -->
         <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
         <script src="assets-dashboard/js/datatables-simple-demo.js"></script>
     </body>

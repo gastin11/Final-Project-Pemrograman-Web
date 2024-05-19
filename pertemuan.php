@@ -99,7 +99,7 @@ $level_admin = $_SESSION['level_admin'];
                             </a>
                             <?php endif; ?>
                             <?php if ($level_admin == 'bendahara'|| $level_admin == 'ketua'): ?>
-                            <a class="nav-link" href="#">
+                            <a class="nav-link" href="./pembayaran.php">
                                 <div class="sb-nav-link-icon"><i class="fas fa-money-check-alt"></i></div>
                                 Pembayaran
                             </a>
