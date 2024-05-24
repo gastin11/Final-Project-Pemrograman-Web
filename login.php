@@ -78,7 +78,7 @@ if(isset($_POST["login"])){
                             ?>
 							<form action="" method="POST" class="needs-validation" novalidate="" autocomplete="off">
 							<div class="mb-3">
-								<label class="mb-2 text-muted" for="username">Nama</label>
+								<label class="mb-2 text-muted" for="username">Username</label>
 								<div class="input-group">
 									<span class="input-group-text"><i class="fas fa-user"></i></span>
 									<input id="username" type="text" class="form-control" name="username" value="<?php echo $username?>" required autofocus>
@@ -87,7 +87,7 @@ if(isset($_POST["login"])){
 
 							<div class="mb-3">
 								<div class="mb-2 w-100">
-									<label class="text-muted" for="password">Password</label>
+									<label class="mb-2 text-muted" for="password">Password</label>
 									<div class="input-group">
 										<span class="input-group-text"><i class="fas fa-lock"></i></span>
 										<input id="password" type="password" class="form-control input" name="password" required>

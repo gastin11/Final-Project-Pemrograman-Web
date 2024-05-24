@@ -11277,12 +11277,11 @@ body {
 }
 
 .sb-sidenav a.nav-link:hover {
-  border-left: 4px solid #fff !important;
-  font-size: 18px;
+  text-decoration: underline;
 }
 
 .sb-sidenav .sb-sidenav-menu-heading, .sb-topnav .navbar-text {
-  color: white !important;
+  color: #fff !important;
 }
 
 .sb-sidenav-footer {

@@ -47,34 +47,57 @@ $level_admin = $_SESSION['level_admin'];
     <body class="sb-nav-fixed">
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
             <!-- Navbar Brand-->
-            <a class="navbar-brand ps-3" href="index.html">Website Arisan PKK</a>
+            <a class="navbar-brand ps-3 d-flex align-items-center" href="dashboard.php">
+                <img src="./assets-dashboard/img/logo.jpg" alt="Logo" class="rounded-circle me-2" width="40" height="40">
+                Arisan PKK
+            </a>
             <!-- Sidebar Toggle-->
             <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
             <!-- Navbar Text-->
             <span class="navbar-text ms-auto me-3 my-2 my-md-0">
-                <?php
-                    // Periksa apakah session level_admin telah diset atau belum
-                    if (isset($_SESSION['nama_admin'])) {
-                            // Jika session sudah diset, tampilkan teks dengan level admin
-                            echo $_SESSION['nama_admin']; 
-                    }
-                ?>
+            Halo, 
+            <?php
+                if (isset($_SESSION['nama_admin'])) {
+                    echo $_SESSION['nama_admin']; 
+                }
+            ?>
             </span>
-            <!-- Navbar-->
-            <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
-                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="#!">Settings</a></li>
-                        <li><hr class="dropdown-divider" /></li>
-                        <li><a class="dropdown-item" href="logout.php">Logout</a></li>
-                    </ul>
-                </li>
-            </ul>
         </nav>
         <div id="layoutSidenav">
             <div id="layoutSidenav_nav">
                 <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+                    <div class="sb-sidenav-footer">
+                        <hr>
+                        <div class="d-flex flex-row align-items-center">
+                        <?php
+                            // Ambil nama admin dari sesi
+                            $nama_admin = $_SESSION['nama_admin'];
+                            
+                            // Ambil gambar admin dari database
+                            $query = "SELECT img_admin FROM admin WHERE nama_admin = '$nama_admin'";
+                            $result = mysqli_query($koneksi, $query);
+                            
+                            if ($row = mysqli_fetch_assoc($result)) {
+                                $img_admin = $row['img_admin'];
+                                echo '<img src="data:image/jpeg;base64,'.base64_encode($img_admin).'" alt="Admin Image" class="rounded-circle me-2" width="40" height="40">';
+                            } else {
+                                // Jika gambar tidak ditemukan, tampilkan gambar placeholder atau pesan kesalahan
+                                echo '<img src="path_to_placeholder_image.jpg" alt="Admin Image" class="rounded-circle me-2" width="40" height="40">';
+                            }
+                        ?>
+                            <div class="small">
+                                <div>Login sebagai:</div>
+                                <div>
+                                    <?php
+                                    if (isset($_SESSION['level_admin'])) {
+                                        echo $_SESSION['level_admin']; 
+                                    }
+                                    ?>
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                    </div>
                     <div class="sb-sidenav-menu">
                         <div class="nav">
                             <div class="sb-sidenav-menu-heading">Menu</div>
@@ -87,10 +110,6 @@ $level_admin = $_SESSION['level_admin'];
                                 <div class="sb-nav-link-icon"><i class="fas fa-user-friends"></i></div>
                                 Kelola Anggota
                             </a>
-                            <!-- <a class="nav-link" href="kelolagrup.php">
-                                <div class="sb-nav-link-icon"><i class="fas fa-users"></i></div>
-                                Kelola Grup
-                            </a> -->
                             <?php endif; ?>
                             <?php if ($level_admin == 'ketua' || $level_admin == 'sekretaris'): ?>
                             <a class="nav-link" href="./pertemuan.php">
@@ -105,22 +124,23 @@ $level_admin = $_SESSION['level_admin'];
                             </a>
                             <?php endif; ?>
                             <?php if ($level_admin == 'ketua' || $level_admin == 'sekretaris'): ?>
-                            <a class="nav-link" href="#">
+                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
                                 <div class="sb-nav-link-icon"><i class="fas fa-book"></i></div>
                                 Laporan
+                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                             </a>
+                            <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                                <nav class="sb-sidenav-menu-nested nav">
+                                    <a class="nav-link fs-6 fw-lighter" href="./laporanpertemuan.php">Laporan Pertemuan</a>
+                                    <a class="nav-link fs-6 fw-lighter" href="laporan_pembayaran.php">Laporan Pembayaran</a>
+                                </nav>
+                            </div>
                             <?php endif; ?>
+                            <a class="nav-link" href="logout.php">
+                                <div class="sb-nav-link-icon"><i class="fas fa-sign-out-alt"></i></div>
+                                Logout
+                            </a>
                         </div>
-                    </div>
-                    <div class="sb-sidenav-footer">
-                        <div class="small">Logged in as:</div>
-                        <?php
-                        // Periksa apakah session level_admin telah diset atau belum
-                        if (isset($_SESSION['level_admin'])) {
-                            // Jika session sudah diset, tampilkan teks dengan level admin
-                            echo $_SESSION['level_admin']; 
-                        }
-                        ?>
                     </div>
                 </nav>
             </div>
