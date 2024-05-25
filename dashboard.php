@@ -128,7 +128,7 @@ $level_admin = $_SESSION['level_admin'];
                             <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
                                     <a class="nav-link fs-6 fw-lighter" href="./laporanpertemuan.php">Laporan Pertemuan</a>
-                                    <a class="nav-link fs-6 fw-lighter" href="laporan_pembayaran.php">Laporan Pembayaran</a>
+                                    <a class="nav-link fs-6 fw-lighter" href="./laporanpembayaran.php">Laporan Pembayaran</a>
                                 </nav>
                             </div>
                             <?php endif; ?>
@@ -160,7 +160,7 @@ $level_admin = $_SESSION['level_admin'];
                                         if($total_anggota = mysqli_num_rows($dash_anggota_query_run)){
                                             echo'<h4 class="mb-0 mt-3"> '.$total_anggota.' </h4>';
                                         } else {
-                                            echo '<h4 class="mb-0 mt-3">Tidak ada data</h4>';
+                                            echo '<h4 class="mb-0 mt-3">0</h4>';
                                         }
 
                                         ?>
@@ -188,7 +188,7 @@ $level_admin = $_SESSION['level_admin'];
                                         if($total_pertemuan = mysqli_num_rows($dash_pertemuan_query_run)){
                                             echo'<h4 class="mb-0 mt-3"> '.$total_pertemuan.' </h4>';
                                         } else {
-                                            echo '<h4 class="mb-0 mt-3">Tidak ada data</h4>';
+                                            echo '<h4 class="mb-0 mt-3">0</h4>';
                                         }
 
                                         ?>   

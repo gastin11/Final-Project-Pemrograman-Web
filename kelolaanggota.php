@@ -132,7 +132,7 @@ $level_admin = $_SESSION['level_admin'];
                             <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
                                     <a class="nav-link fs-6 fw-lighter" href="./laporanpertemuan.php">Laporan Pertemuan</a>
-                                    <a class="nav-link fs-6 fw-lighter" href="laporan_pembayaran.php">Laporan Pembayaran</a>
+                                    <a class="nav-link fs-6 fw-lighter" href="./laporanpembayaran.php">Laporan Pembayaran</a>
                                 </nav>
                             </div>
                             <?php endif; ?>

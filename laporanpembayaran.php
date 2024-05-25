@@ -1,6 +1,8 @@
 <?php
 
 include_once ("koneksi.php");
+$query = "SELECT * FROM tb_pembayaran";
+$hasil = mysqli_query($koneksi, $query);
 
 // Mulai session
 session_start();
@@ -36,7 +38,7 @@ $level_admin = $_SESSION['level_admin'];
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>Laporan Pertemuan</title>
+        <title>Laporan Pembayaran</title>
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
         <link href="assets-dashboard/css/styles.css" rel="stylesheet" />
         <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
@@ -145,14 +147,14 @@ $level_admin = $_SESSION['level_admin'];
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
-                        <h1 class="mt-4">Laporan Pertemuan</h1>
+                        <h1 class="mt-4">Laporan Pembayaran</h1>
                         <ol class="breadcrumb mb-4">
-                            <li class="breadcrumb-item active">Laporan Pertemuan</li>
+                            <li class="breadcrumb-item active">Laporan Pembayaran</li>
                         </ol>
                         
                         <div class="card mb-4">
                             <div class="card-body">
-                                <h5 class="mb-4">Cetak laporan pertemuan</h5>
+                                <h5 class="mb-4">Cetak laporan pembayaran</h5>
                                 <a href="./pertemuan_excel.php" target="_blank" class="btn btn-success"><i class="fas fa-file-excel"></i> &nbsp Excel</a>
                                 <a href="pertemuan_pdf.php" class="btn btn-danger"><i class="fas fa-file-pdf"></i> &nbsp PDF</a>
                             </div>
