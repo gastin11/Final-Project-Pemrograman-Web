@@ -191,7 +191,12 @@ $result_anggota = mysqli_query($koneksi, $query_anggota);
                                     <label for="bukti" class="form-label">Bukti Pembayaran</label>
                                     <input type="file" name="bukti" id="bukti" class="form-control" accept="image/*" required>
                                 </div>
-                                <button type="submit" class="btn btn-primary">Simpan</button>
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fas fa-save"></i> Simpan
+                                </button>
+                                <a href="./detailpembayaran.php" class="btn btn-outline-primary">
+                                    <i class="fas fa-eye"></i> Lihat Detail
+                                </a>
                         </form>
 
                         </div>

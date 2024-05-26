@@ -1,4 +1,8 @@
 <?php
+
+include_once ("koneksi.php");
+
+// Mulai session
 session_start();
 
 if (isset($_SESSION['expire_time']) && $_SESSION['expire_time'] < time()) {
@@ -9,8 +13,6 @@ if (isset($_SESSION['expire_time']) && $_SESSION['expire_time'] < time()) {
 } else {
     $_SESSION['expire_time'] = time() + (5 * 60);
 }
-
-include_once("koneksi.php");
 
 // Periksa apakah session nama_admin telah diset atau belum
 if (!isset($_SESSION['nama_admin'])) {
@@ -34,7 +36,7 @@ $level_admin = $_SESSION['level_admin'];
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>Website Arisan PKK</title>
+        <title>Detail Pembayaran</title>
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
         <link href="assets-dashboard/css/styles.css" rel="stylesheet" />
         <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
@@ -46,7 +48,7 @@ $level_admin = $_SESSION['level_admin'];
             <a class="navbar-brand ps-3 d-flex align-items-center" href="dashboard.php">
                 <img src="./assets-dashboard/img/logo.jpg" alt="Logo" class="rounded-circle me-2" width="40" height="40">
                 Arisan PKK
-            </a>       
+            </a>
             <!-- Sidebar Toggle-->
             <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
             <!-- Navbar Text-->
@@ -142,152 +144,152 @@ $level_admin = $_SESSION['level_admin'];
             </div>
             <div id="layoutSidenav_content">
                 <main>
-                    <div class="container-fluid px-4">
-                        <h1 class="mt-4">Dashboard</h1>
-                        <ol class="breadcrumb mb-4">
-                            <li class="breadcrumb-item active">Dashboard</li>
+                <div class="container-fluid px-4">
+                        <h1 class="mt-4">Detail Pembayaran</h1>
+                        <ol class="breadcrumb mb-3">
+                            <li class="breadcrumb-item active">Detail Pembayaran</li>
                         </ol>
-                        <div class="row">
-                            <div class="col-xl-3 col-md-6">
-                                <div class="card bg-primary text-white mb-4">
-                                    <div class="card-body"><i class="fas fa-user-friends"></i>
-                                        Anggota
-                                        <?php 
-                                        
-                                        $dash_anggota_query = "SELECT * FROM tb_anggota";
-                                        $dash_anggota_query_run = mysqli_query($koneksi, $dash_anggota_query);
+                        <a href="./pembayaran.php" class="btn btn-primary mb-3"><i class="fas fa-save px-1"></i>Input Pembayaran</a>
 
-                                        if($total_anggota = mysqli_num_rows($dash_anggota_query_run)){
-                                            echo'<h4 class="mb-0 mt-3"> '.$total_anggota.' </h4>';
-                                        } else {
-                                            echo '<h4 class="mb-0 mt-3">0</h4>';
-                                        }
-
-                                        ?>
-                                    </div>
-                                    
-                                </div>
-                            </div>
-                            <div class="col-xl-3 col-md-6">
-                                <div class="card bg-warning text-white mb-4">
-                                    <div class="card-body">
-                                        <i class="fas fa-users"></i> Grup Arisan
-                                        <h4 class="mb-0 mt-3">0</h4>     
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-3 col-md-6">
-                                <div class="card bg-success text-white mb-4">
-                                    <div class="card-body">
-                                        <i class="fas fa-handshake"></i> Pertemuan Arisan
-                                        <?php 
-                                        
-                                        $dash_pertemuan_query = "SELECT * FROM tb_pertemuan";
-                                        $dash_pertemuan_query_run = mysqli_query($koneksi, $dash_pertemuan_query);
-
-                                        if($total_pertemuan = mysqli_num_rows($dash_pertemuan_query_run)){
-                                            echo'<h4 class="mb-0 mt-3"> '.$total_pertemuan.' </h4>';
-                                        } else {
-                                            echo '<h4 class="mb-0 mt-3">0</h4>';
-                                        }
-
-                                        ?>   
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-3 col-md-6">
-                                <div class="card bg-danger text-white mb-4">
-                                    <div class="card-body">
-                                        <i class="fas fa-money-check-alt"></i> Pembayaran Bulan Ini
-                                        <?php 
-                                        // Menghitung jumlah pembayaran berdasarkan bulan saat ini
-                                        $currentMonth = date('m');
-                                        $dash_pembayaran_query = "SELECT * FROM tb_pembayaran WHERE MONTH(tanggal) = '$currentMonth'";
-                                        $dash_pembayaran_query_run = mysqli_query($koneksi, $dash_pembayaran_query);
-
-                                        $total_pembayaran = 0;
-                                        if ($total_pembayaran = mysqli_num_rows($dash_pembayaran_query_run)) {
-                                            $total_pembayaran = mysqli_num_rows($dash_pembayaran_query_run);
-                                        } else {
-                                            $total_pembayaran = 0;
-                                        }
-                                        ?>
-                                        <h4 class="mb-0 mt-3"><?php echo $total_pembayaran; ?></h4>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-xl-6">
-                                <div class="card mb-4">
-                                    <div class="card-header">
-                                        <i class="fas fa-calendar me-1"></i>
-                                        Kalender
-                                    </div>
-                                    <div id="calendar" class="card-body">
-                                        <div class="d-flex justify-content-center align-items-center">
-                                            <button id="prevBtn" class="btn btn-sm btn-primary me-2"><i class="fas fa-chevron-left"></i></button>
-                                            <h2 id="monthYearText"></h2>
-                                            <button id="nextBtn" class="btn btn-sm btn-primary ms-2"><i class="fas fa-chevron-right"></i></button>
-                                        </div>
-                                    </div>
-                                    
-                                </div>
-                            </div>
-                            <div class="col-xl-6">
-                                <div class="card mb-4">
-                                    <div class="card-header">
-                                        <i class="fas fa-chart-bar me-1"></i>
-                                        Chart Pembayaran
-                                    </div>
-                                    <div class="card-body"><canvas id="myBarChart" width="100%" height="40"></canvas></div>
-                                </div>
-                            </div>
-                        </div>
+                        
                         <div class="card mb-4">
                             <div class="card-header">
-                                <i class="fas fa-table me-1"></i>
-                                Tabel Informasi Pembayaran Bulan Ini
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <i class="fas fa-table me-1"></i>
+                                        Tabel Detail Pembayaran
+                                    </div>
+                                </div>
+                                
                             </div>
+                            
                             <div class="card-body">
                                 <table id="datatablesSimple" class="table table-info table-striped">
                                     <thead>
                                         <tr>
-                                            <th>NO</th>
+                                            <th>No</th>
+                                            <th>ID Pembayaran</th>
+                                            <th>ID Anggota</th>
                                             <th>Nama</th>
+                                            <th>ID Pertemuan</th>
                                             <th>Tanggal</th>
-                                            <th>Status Pembayaran</th>
+                                            <th>Status</th>
+                                            <th>Bukti</th>
+                                            <th>Aksi</th>
                                         </tr>
                                     </thead>
                                     <tfoot>
                                         <tr>
-                                            <th>NO</th>
+                                            <th>No</th>
+                                            <th>ID Pembayaran</th>
+                                            <th>ID Anggota</th>
                                             <th>Nama</th>
+                                            <th>ID Pertemuan</th>
                                             <th>Tanggal</th>
-                                            <th>Status Pembayaran</th>
+                                            <th>Status</th>
+                                            <th>Bukti</th>
+                                            <th>Aksi</th>
                                         </tr>
+
                                     </tfoot>                                    
                                     <tbody>
                                     <?php 
                                     $no = 1;
-                                    $currentMonth = date('m');
-                                    $tampil = mysqli_query($koneksi,"SELECT * FROM tb_pembayaran WHERE MONTH(tanggal) = '$currentMonth' ORDER BY id_pembayaran");
+                                    $tampil = mysqli_query($koneksi,"SELECT * FROM tb_pembayaran ORDER BY id_pembayaran");
                                     while ($data = mysqli_fetch_array($tampil)): 
                                     ?>
                                         <tr>
                                             <td><?php echo $no++ ?></td>
+                                            <td><?php echo $data['id_pembayaran'] ?></td>
+                                            <td><?php echo $data['id_anggota'] ?></td>
                                             <td><?php echo $data['nama']?></td>
+                                            <td><?php echo $data['id_pertemuan'] ?></td>
                                             <td><?php echo $data['tanggal'] ?></td>
                                             <td><?php echo $data['status_pembayaran'] ?></td>
+                                            <td><?php echo $data['bukti'] ?></td>
+                                            <td>
+                                                <a href="#" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#modaledit<?php echo $data['id_pembayaran']; ?>">
+                                                    <i class="fas fa-edit"></i> Edit
+                                                </a>
+                                                <a href="#" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalhapus<?php echo $data['id_pembayaran']; ?>">
+                                                    <i class="fas fa-trash-alt"></i> Hapus
+                                                </a>
+                                            </td>
                                         </tr>
+
+                                        <!-- Awal Modal Edit -->
+                                        <div class="modal fade" id="modaledit<?php echo $data['id_pembayaran']; ?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                            <div class="modal-dialog modal-dialog-centered">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h1 class="modal-title fs-5" id="staticBackdropLabel"><i class="fas fa-edit"></i>Edit Pembayaran</h1>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+
+                                                    <form method="POST" action="crudpembayaran.php">
+                                                    <input type="hidden" name="id_pembayaran" value="<?php echo $data['id_anggota'] ?>">
+                                                    <div class="modal-body">
+                                                        <div class="mb-3">
+                                                            <label for="exampleFormControlInput1" class="form-label">Nama</label>
+                                                            <input type="text" class="form-control" id="exampleFormControlInput1" name="tnama" value="<?php echo $data['nama'] ?>" placeholder="Masukkan Nama">
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label for="exampleFormControlInput1" class="form-label">Nomor Telepon</label>
+                                                            <input type="text" class="form-control" id="exampleFormControlInput1" name="tnotelp"value="<?php echo $data['noTelpon'] ?>" placeholder="Masukkan No.Telpon">
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label for="exampleFormControlInput1" class="form-label">Email</label>
+                                                            <input type="email" class="form-control" id="exampleFormControlInput1" name="temail" value="<?php echo $data['email'] ?>" placeholder="Masukkan Email">
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Tutup</button>
+                                                        <button type="submit" class="btn btn-primary" name="btnedit">Ubah</button>
+                                                    </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- AKhir Modal Edit-->
+
+                                        <!-- Awal Modal Hapus -->
+                                        <div class="modal fade" id="modalhapus<?php echo $data['id_anggota']; ?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h1 class="modal-title fs-5" id="staticBackdropLabel"><i class="fas fa-trash-alt"></i>Konfirmasi Hapus Anggota</h1>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+
+                                                    <form method="POST" action="crudanggota.php">
+                                                    <input type="hidden" name="id_anggota" value="<?php echo $data['id_anggota'] ?>">
+                                                    <div class="modal-body">
+                                                        <h5 class="text-center">Apakah anda yakin ingin menghapus data ini?<br>
+                                                        <span class="text-danger"><?php echo $data['nama'] ?> </span>
+                                                        </h5>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="submit" class="btn btn-danger" name="btnhapus">Hapus</button>
+                                                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Tidak</button>
+                                                    </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- AKhir Modal Hapus-->
+
                                     <?php endwhile; ?>    
                                     </tbody>
+
+
                                 </table>
+                                </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </main>
-                <footer class="py-4 bg-light mt-auto">
+                <footer class="py-4 bg-light mt-5">
                     <div class="container-fluid px-4">
                         <div class="d-flex align-items-center justify-content-center small">
                             <div class="text-muted">Copyright &copy; Kelompok 1 Paralel F 2024</div>
@@ -298,6 +300,9 @@ $level_admin = $_SESSION['level_admin'];
         </div>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
         <script src="assets-dashboard/js/scripts.js"></script>
+        <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
+        <script src="assets/demo/chart-area-demo.js"></script>
+        <script src="assets/demo/chart-bar-demo.js"></script> -->
         <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
         <script src="assets-dashboard/js/datatables-simple-demo.js"></script>
     </body>
