@@ -171,14 +171,6 @@ $level_admin = $_SESSION['level_admin'];
                             <div class="col-xl-3 col-md-6">
                                 <div class="card bg-warning text-white mb-4">
                                     <div class="card-body">
-                                        <i class="fas fa-users"></i> Grup Arisan
-                                        <h4 class="mb-0 mt-3">0</h4>     
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-3 col-md-6">
-                                <div class="card bg-success text-white mb-4">
-                                    <div class="card-body">
                                         <i class="fas fa-handshake"></i> Pertemuan Arisan
                                         <?php 
                                         
@@ -196,7 +188,7 @@ $level_admin = $_SESSION['level_admin'];
                                 </div>
                             </div>
                             <div class="col-xl-3 col-md-6">
-                                <div class="card bg-danger text-white mb-4">
+                                <div class="card bg-success text-white mb-4">
                                     <div class="card-body">
                                         <i class="fas fa-money-check-alt"></i> Pembayaran Bulan Ini
                                         <?php 
@@ -216,6 +208,15 @@ $level_admin = $_SESSION['level_admin'];
                                     </div>
                                 </div>
                             </div>
+                            <div class="col-xl-3 col-md-6">
+                                <div class="card bg-danger text-white mb-4">
+                                    <div class="card-body">
+                                        <i class="fas fa-users"></i> Admin
+                                        <h4 class="mb-0 mt-3">3</h4>     
+                                    </div>
+                                </div>
+                            </div>
+                            
                         </div>
                         <div class="row">
                             <div class="col-xl-6">
@@ -240,7 +241,7 @@ $level_admin = $_SESSION['level_admin'];
                                         <i class="fas fa-chart-bar me-1"></i>
                                         Chart Pembayaran
                                     </div>
-                                    <div class="card-body"><canvas id="myBarChart" width="100%" height="40"></canvas></div>
+                                    <div class="card-body"><canvas id="myChart"></canvas></div>
                                 </div>
                             </div>
                         </div>
@@ -300,5 +301,35 @@ $level_admin = $_SESSION['level_admin'];
         <script src="assets-dashboard/js/scripts.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
         <script src="assets-dashboard/js/datatables-simple-demo.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const data = {
+                    labels: ['Red', 'Blue', 'Yellow'],
+                    datasets: [{
+                        label: 'My First Dataset',
+                        data: [300, 50, 100],
+                        backgroundColor: [
+                            'rgb(255, 99, 132)',
+                            'rgb(54, 162, 235)',
+                            'rgb(255, 205, 86)'
+                        ],
+                        hoverOffset: 4
+                    }]
+                };
+                const config = {
+                    type: 'doughnut',
+                    data: data,
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false
+                    }
+                };
+                const myChart = new Chart(
+                    document.getElementById('myChart'),
+                    config
+                );
+            });
+        </script>
     </body>
 </html>

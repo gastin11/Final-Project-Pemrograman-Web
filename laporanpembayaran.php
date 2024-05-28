@@ -1,5 +1,4 @@
 <?php
-
 include_once ("koneksi.php");
 $query = "SELECT * FROM tb_pembayaran";
 $hasil = mysqli_query($koneksi, $query);
@@ -27,7 +26,6 @@ if (!isset($_SESSION['nama_admin'])) {
 
 // Ambil level pengguna dari sesi
 $level_admin = $_SESSION['level_admin'];
-
 ?>
 
 <!DOCTYPE html>
@@ -148,15 +146,17 @@ $level_admin = $_SESSION['level_admin'];
                 <main>
                     <div class="container-fluid px-4">
                         <h1 class="mt-4">Laporan Pembayaran</h1>
-                        <ol class="breadcrumb mb-4">
+                        <ol class="breadcrumb mb=4">
                             <li class="breadcrumb-item active">Laporan Pembayaran</li>
                         </ol>
                         
                         <div class="card mb-4">
                             <div class="card-body">
                                 <h5 class="mb-4">Cetak laporan pembayaran</h5>
-                                <a href="./pertemuan_excel.php" target="_blank" class="btn btn-success"><i class="fas fa-file-excel"></i> &nbsp Excel</a>
-                                <a href="pertemuan_pdf.php" class="btn btn-danger"><i class="fas fa-file-pdf"></i> &nbsp PDF</a>
+                                <form action="pembayaran_excel.php" method="post">
+                                    <input type="month" class="form-control mb-4" id="exampleFormControlInput1" name="ttanggal" required>
+                                    <button type="submit" class="btn btn-success"><i class="fas fa-file-excel"></i> &nbsp Excel</button>
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -172,4 +172,5 @@ $level_admin = $_SESSION['level_admin'];
         </div>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
         <script src="assets-dashboard/js/scripts.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2
+    </body>
+</html>

@@ -1,6 +1,8 @@
 <?php
 
 include_once ("koneksi.php");
+$query= "SELECT * FROM tb_pembayaran";
+$hasil = mysqli_query ($koneksi, $query);
 
 // Mulai session
 session_start();
@@ -149,7 +151,6 @@ $level_admin = $_SESSION['level_admin'];
                         <ol class="breadcrumb mb-3">
                             <li class="breadcrumb-item active">Detail Pembayaran</li>
                         </ol>
-                        <a href="./pembayaran.php" class="btn btn-primary mb-3"><i class="fas fa-save px-1"></i>Input Pembayaran</a>
 
                         
                         <div class="card mb-4">
@@ -164,6 +165,7 @@ $level_admin = $_SESSION['level_admin'];
                             </div>
                             
                             <div class="card-body">
+                                <a href="./pembayaran.php" class="btn btn-primary mb-3"><i class="fas fa-plus px-1"></i>Input Pembayaran</a>
                                 <table id="datatablesSimple" class="table table-info table-striped">
                                     <thead>
                                         <tr>
@@ -206,7 +208,7 @@ $level_admin = $_SESSION['level_admin'];
                                             <td><?php echo $data['id_pertemuan'] ?></td>
                                             <td><?php echo $data['tanggal'] ?></td>
                                             <td><?php echo $data['status_pembayaran'] ?></td>
-                                            <td><?php echo $data['bukti'] ?></td>
+                                            <td><img width="120" height="120" src="<?php echo $data['bukti'] ?>" alt="<?php echo $data['bukti'] ?>"></td>
                                             <td>
                                                 <a href="#" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#modaledit<?php echo $data['id_pembayaran']; ?>">
                                                     <i class="fas fa-edit"></i> Edit
@@ -226,20 +228,24 @@ $level_admin = $_SESSION['level_admin'];
                                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                     </div>
 
-                                                    <form method="POST" action="crudpembayaran.php">
-                                                    <input type="hidden" name="id_pembayaran" value="<?php echo $data['id_anggota'] ?>">
+                                                    <form method="POST" action="crudpembayaran.php" enctype="multipart/form-data">
+                                                    <input type="hidden" name="id_pembayaran" value="<?php echo $data['id_pembayaran'] ?>">
                                                     <div class="modal-body">
                                                         <div class="mb-3">
-                                                            <label for="exampleFormControlInput1" class="form-label">Nama</label>
-                                                            <input type="text" class="form-control" id="exampleFormControlInput1" name="tnama" value="<?php echo $data['nama'] ?>" placeholder="Masukkan Nama">
+                                                            <label for="exampleFormControlInput1" class="form-label">Tanggal</label>
+                                                            <input type="text" class="form-control" id="exampleFormControlInput1" name="ttanggal"value="<?php echo $data['tanggal'] ?>" placeholder="Masukkan Tanggal Baru">
                                                         </div>
                                                         <div class="mb-3">
-                                                            <label for="exampleFormControlInput1" class="form-label">Nomor Telepon</label>
-                                                            <input type="text" class="form-control" id="exampleFormControlInput1" name="tnotelp"value="<?php echo $data['noTelpon'] ?>" placeholder="Masukkan No.Telpon">
+                                                            <label for="exampleFormControlInput1" class="form-label">Status Pembayaran</label>
+                                                            <select name="status_pembayaran" id="status_pembayaran" class="form-control" required>
+                                                                <option value=""><?php echo $data['status_pembayaran'] ?></option>
+                                                                <option value="Belum Lunas">Belum Lunas</option>
+                                                                <option value="Lunas">Lunas</option>
+                                                            </select>
                                                         </div>
                                                         <div class="mb-3">
-                                                            <label for="exampleFormControlInput1" class="form-label">Email</label>
-                                                            <input type="email" class="form-control" id="exampleFormControlInput1" name="temail" value="<?php echo $data['email'] ?>" placeholder="Masukkan Email">
+                                                            <label for="exampleFormControlInput1" class="form-label">Bukti</label>
+                                                            <input type="file" name="bukti" id="bukti" class="form-control" accept="image/*" required>
                                                         </div>
                                                     </div>
                                                     <div class="modal-footer">
@@ -253,16 +259,16 @@ $level_admin = $_SESSION['level_admin'];
                                         <!-- AKhir Modal Edit-->
 
                                         <!-- Awal Modal Hapus -->
-                                        <div class="modal fade" id="modalhapus<?php echo $data['id_anggota']; ?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                        <div class="modal fade" id="modalhapus<?php echo $data['id_pembayaran']; ?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                                             <div class="modal-dialog">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
-                                                        <h1 class="modal-title fs-5" id="staticBackdropLabel"><i class="fas fa-trash-alt"></i>Konfirmasi Hapus Anggota</h1>
+                                                        <h1 class="modal-title fs-5" id="staticBackdropLabel"><i class="fas fa-trash-alt"></i>Konfirmasi Hapus Pembayaran</h1>
                                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                     </div>
 
-                                                    <form method="POST" action="crudanggota.php">
-                                                    <input type="hidden" name="id_anggota" value="<?php echo $data['id_anggota'] ?>">
+                                                    <form method="POST" action="crudpembayaran.php" enctype="multipart/form-data">
+                                                    <input type="hidden" name="id_pembayaran" value="<?php echo $data['id_pembayaran'] ?>">
                                                     <div class="modal-body">
                                                         <h5 class="text-center">Apakah anda yakin ingin menghapus data ini?<br>
                                                         <span class="text-danger"><?php echo $data['nama'] ?> </span>
