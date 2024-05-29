@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-// Atur waktu kedaluwarsa sesi ke 3 menit
+// Atur waktu sesi 5 menit
 $_SESSION['expire_time'] = time() + (5 * 60);
 
 
@@ -19,7 +19,7 @@ if(isset($_POST["login"])){
     $username = $_POST["username"];
     $password = $_POST["password"];
     if($username == '' or $password == ''){
-        $err .="Silahkan Masukkan Username dan Password Terlebih Dahulu!!</li>";
+        $err .="Silahkan masukkan Username dan Password terlebih dahulu</li>";
     }
     if(empty($err)){
         $sql1 = "SELECT * FROM admin WHERE nama_admin = '$username'";
@@ -50,7 +50,7 @@ if(isset($_POST["login"])){
 
 	<!-- Font Awesome -->
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-
+	<link rel="icon" type="image/x-icon" href="./asset-login/logo-login.png">
 
 
 </head>

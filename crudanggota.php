@@ -36,6 +36,7 @@
 
         if(isset($_POST["btnedit"])){
             $edit = mysqli_query($koneksi, "UPDATE tb_anggota SET nama = '$_POST[tnama]', noTelpon = '$_POST[tnotelp]', email = '$_POST[temail]' WHERE id_anggota = '$_POST[id_anggota]'");
+            $edit = mysqli_query($koneksi, "UPDATE tb_pembayaran SET nama = '$_POST[tnama]' WHERE id_anggota = '$_POST[id_anggota]'");
 
             if($edit){
                 echo "<script>

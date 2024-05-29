@@ -12,7 +12,8 @@
 
         <!-- Bootstrap icons-->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet"/>
-        
+        <link rel="icon" type="image/x-icon" href="./asset-login/logo-login.png">
+
         
     </head>
     <body class="d-flex flex-column h-100">
@@ -213,7 +214,7 @@
         <!-- JS-->
         <script>
             function kirimPesanWA(){
-                const urlToWA = `https://wa.me/6285714775537?text=Saya ${nama.value}, ${pesan.value}`;
+                const urlToWA = `https://wa.me/6285714775537?text=Permisi, Saya ${nama.value}, ${pesan.value}`;
                 window.open(urlToWA, "_blank");
                 nama.value = '';
                 pesan.value = '';

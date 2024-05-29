@@ -43,6 +43,7 @@ $level_admin = $_SESSION['level_admin'];
         <link href="assets-dashboard/css/styles.css" rel="stylesheet" />
         <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+        <link rel="icon" type="image/x-icon" href="./asset-login/logo-login.png">
     </head>
     <body class="sb-nav-fixed">
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
@@ -208,7 +209,11 @@ $level_admin = $_SESSION['level_admin'];
                                             <td><?php echo $data['id_pertemuan'] ?></td>
                                             <td><?php echo $data['tanggal'] ?></td>
                                             <td><?php echo $data['status_pembayaran'] ?></td>
-                                            <td><img width="120" height="120" src="<?php echo $data['bukti'] ?>" alt="<?php echo $data['bukti'] ?>"></td>
+                                            <td>
+                                                <a href="<?php echo $data['bukti'];?>">
+                                                <img width="120" src="<?php echo $data['bukti'] ?>" alt="<?php echo $data['bukti'] ?>">
+                                                </a>
+                                            </td>
                                             <td>
                                                 <a href="#" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#modaledit<?php echo $data['id_pembayaran']; ?>">
                                                     <i class="fas fa-edit"></i> Edit
@@ -231,6 +236,13 @@ $level_admin = $_SESSION['level_admin'];
                                                     <form method="POST" action="crudpembayaran.php" enctype="multipart/form-data">
                                                     <input type="hidden" name="id_pembayaran" value="<?php echo $data['id_pembayaran'] ?>">
                                                     <div class="modal-body">
+                                                        
+                                                        <div class="mb-3">
+                                                            <fieldset disabled>
+                                                                <label for="exampleFormControlInput1" class="form-label">Nama</label>
+                                                                <input type="text" id="disabledTextInput" class="form-control" placeholder="Disabled input" value="<?php echo $data['nama'] ?>">
+                                                            </fieldset>
+                                                        </div>
                                                         <div class="mb-3">
                                                             <label for="exampleFormControlInput1" class="form-label">Tanggal</label>
                                                             <input type="text" class="form-control" id="exampleFormControlInput1" name="ttanggal"value="<?php echo $data['tanggal'] ?>" placeholder="Masukkan Tanggal Baru">
@@ -271,7 +283,7 @@ $level_admin = $_SESSION['level_admin'];
                                                     <input type="hidden" name="id_pembayaran" value="<?php echo $data['id_pembayaran'] ?>">
                                                     <div class="modal-body">
                                                         <h5 class="text-center">Apakah anda yakin ingin menghapus data ini?<br>
-                                                        <span class="text-danger"><?php echo $data['nama'] ?> </span>
+                                                        <span class="text-danger"><?php echo $data['id_pembayaran'] ?> - <?php echo $data['nama'] ?></span>
                                                         </h5>
                                                     </div>
                                                     <div class="modal-footer">

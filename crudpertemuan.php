@@ -36,7 +36,7 @@
 
         if(isset($_POST["btnedit"])){
             $edit = mysqli_query($koneksi, "UPDATE tb_pertemuan SET lokasi = '$_POST[tlokasi]', tanggal = '$_POST[ttanggal]', jam = '$_POST[tjam]' WHERE id_pertemuan = '$_POST[id_pertemuan]'");
-
+            
             if($edit){
                 echo "<script>
                         alert('Data berhasil di edit')
