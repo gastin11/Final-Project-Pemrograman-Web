@@ -155,6 +155,7 @@ $level_admin = $_SESSION['level_admin'];
                             <div class="card-body">
                                 <h5 class="mb-4">Cetak laporan pembayaran</h5>
                                 <form action="pembayaran_excel.php" method="post">
+                                    <label for="exampleFormControlInput1" class="form-label">Pilih Bulan</label>
                                     <input type="month" class="form-control mb-4" id="exampleFormControlInput1" name="ttanggal" required>
                                     <button type="submit" class="btn btn-success"><i class="fas fa-file-excel"></i> &nbsp Excel</button>
                                 </form>

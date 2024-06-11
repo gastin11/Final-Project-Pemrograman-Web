@@ -94,7 +94,7 @@ if(isset($_POST["btnedit"])){
     $tanggal = $_POST['ttanggal'];
     $status_pembayaran = $_POST['status_pembayaran'];
     $bukti_lama = $_POST['bukti_lama']; 
-    $target_file = $bukti_lama; 
+    $target_file = $bukti_lama; // Default target file adalah bukti lama
 
     if (!empty($_FILES["bukti"]["name"])) {
         $target_dir = "uploads/";
@@ -120,19 +120,16 @@ if(isset($_POST["btnedit"])){
             $uploadOk = 0;
         }
 
-        // Check if $uploadOk is set to 0 by an error
-        if ($uploadOk == 0) {
-            echo "File tidak bisa diupload";
-        // If everything is ok, try to upload file
-        } else {
+        if ($uploadOk == 1) {
             if (move_uploaded_file($_FILES["bukti"]["tmp_name"], $target_file)) {
-                // Optionally, delete the old file if a new one is uploaded
                 if ($bukti_lama && file_exists($bukti_lama)) {
                     unlink($bukti_lama);
                 }
             } else {
                 echo "Terjadi kesalahan saat upload";
             }
+        } else {
+            $target_file = $bukti_lama; // Tetap gunakan bukti lama jika upload gagal
         }
     }
 
@@ -150,6 +147,7 @@ if(isset($_POST["btnedit"])){
             </script>";
     }
 }
+
 
 
 if (isset($_POST["btnhapus"])) {

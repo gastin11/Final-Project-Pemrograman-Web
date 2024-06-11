@@ -235,8 +235,8 @@ $level_admin = $_SESSION['level_admin'];
 
                                                     <form method="POST" action="crudpembayaran.php" enctype="multipart/form-data">
                                                     <input type="hidden" name="id_pembayaran" value="<?php echo $data['id_pembayaran'] ?>">
+                                                    <input type="hidden" name="bukti_lama" value="<?php echo $data['bukti'] ?>"> 
                                                     <div class="modal-body">
-                                                        
                                                         <div class="mb-3">
                                                             <fieldset disabled>
                                                                 <label for="exampleFormControlInput1" class="form-label">Nama</label>
@@ -245,19 +245,19 @@ $level_admin = $_SESSION['level_admin'];
                                                         </div>
                                                         <div class="mb-3">
                                                             <label for="exampleFormControlInput1" class="form-label">Tanggal</label>
-                                                            <input type="text" class="form-control" id="exampleFormControlInput1" name="ttanggal"value="<?php echo $data['tanggal'] ?>" placeholder="Masukkan Tanggal Baru">
+                                                            <input type="text" class="form-control" id="exampleFormControlInput1" name="ttanggal"value="<?php echo $data['tanggal'] ?>" placeholder="Masukkan Tanggal Baru" required>
                                                         </div>
                                                         <div class="mb-3">
                                                             <label for="exampleFormControlInput1" class="form-label">Status Pembayaran</label>
                                                             <select name="status_pembayaran" id="status_pembayaran" class="form-control" required>
-                                                                <option value=""><?php echo $data['status_pembayaran'] ?></option>
+                                                                <option value="<?php echo $data['status_pembayaran'] ?>"><?php echo $data['status_pembayaran'] ?></option>
                                                                 <option value="Belum Lunas">Belum Lunas</option>
                                                                 <option value="Lunas">Lunas</option>
                                                             </select>
                                                         </div>
                                                         <div class="mb-3">
                                                             <label for="exampleFormControlInput1" class="form-label">Bukti</label>
-                                                            <input type="file" name="bukti" id="bukti" class="form-control" accept="image/*" required>
+                                                            <input type="file" name="bukti" id="bukti" class="form-control" accept="image/*" value="<?php echo $data['bukti'] ?>">
                                                         </div>
                                                     </div>
                                                     <div class="modal-footer">

@@ -233,15 +233,15 @@ $level_admin = $_SESSION['level_admin'];
                                             ?>
                                                 <div class="mb-3">
                                                     <label for="exampleFormControlInput1" class="form-label">Lokasi</label>
-                                                    <input type="text" class="form-control" id="exampleFormControlInput1" name="tlokasi" placeholder="Masukkan lokasi pertemuan">
+                                                    <input type="text" class="form-control" id="exampleFormControlInput1" name="tlokasi" placeholder="Masukkan lokasi pertemuan" required>
                                                 </div>
                                                 <div class="mb-3">
                                                     <label for="exampleFormControlInput1" class="form-label">Tanggal</label>
-                                                    <input type="date" class="form-control" id="exampleFormControlInput1" name="ttanggal" placeholder="Masukkan tanggal pertemuan">
+                                                    <input type="date" class="form-control" id="exampleFormControlInput1" name="ttanggal" placeholder="Masukkan tanggal pertemuan" required>
                                                 </div>
                                                 <div class="mb-3">
                                                     <label for="exampleFormControlInput1" class="form-label">Jam</label>
-                                                    <input type="text" class="form-control" id="exampleFormControlInput1" name="tjam" placeholder="Masukkan jam pertemuan">
+                                                    <input type="text" class="form-control" id="exampleFormControlInput1" name="tjam" placeholder="Masukkan jam pertemuan" required>
                                                 </div>
                                             </div>
                                             <div class="modal-footer">
@@ -334,15 +334,15 @@ $level_admin = $_SESSION['level_admin'];
                                                     <div class="modal-body">
                                                         <div class="mb-3">
                                                             <label for="exampleFormControlInput1" class="form-label">Lokasi</label>
-                                                            <input type="text" class="form-control" id="exampleFormControlInput1" name="tlokasi" value="<?php echo $data['lokasi'] ?>" placeholder="Masukkan lokasi pertemuan">
+                                                            <input type="text" class="form-control" id="exampleFormControlInput1" name="tlokasi" value="<?php echo $data['lokasi'] ?>" placeholder="Masukkan lokasi pertemuan" required>
                                                         </div>
                                                         <div class="mb-3">
                                                             <label for="exampleFormControlInput1" class="form-label">Tanggal</label>
-                                                            <input type="date" class="form-control" id="exampleFormControlInput1" name="ttanggal"value="<?php echo $data['tanggal'] ?>" placeholder="Masukkan tanggal pertemuan">
+                                                            <input type="date" class="form-control" id="exampleFormControlInput1" name="ttanggal"value="<?php echo $data['tanggal'] ?>" placeholder="Masukkan tanggal pertemuan" required>
                                                         </div>
                                                         <div class="mb-3">
                                                             <label for="exampleFormControlInput1" class="form-label">Jam</label>
-                                                            <input type="text" class="form-control" id="exampleFormControlInput1" name="tjam" value="<?php echo $data['jam'] ?>" placeholder="Masukkan Jam pertemuan">
+                                                            <input type="text" class="form-control" id="exampleFormControlInput1" name="tjam" value="<?php echo $data['jam'] ?>" placeholder="Masukkan Jam pertemuan" required>
                                                         </div>
                                                     </div>
                                                     <div class="modal-footer">

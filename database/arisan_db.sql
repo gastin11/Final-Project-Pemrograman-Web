@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Waktu pembuatan: 28 Bulan Mei 2024 pada 09.30
+-- Waktu pembuatan: 04 Jun 2024 pada 09.30
 -- Versi server: 8.0.30
 -- Versi PHP: 8.1.10
 
@@ -29,10 +29,10 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `admin` (
   `id_admin` int NOT NULL,
-  `email_admin` varchar(25) COLLATE utf8mb4_general_ci NOT NULL,
-  `nama_admin` varchar(25) COLLATE utf8mb4_general_ci NOT NULL,
-  `password` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
-  `level_admin` varchar(25) COLLATE utf8mb4_general_ci NOT NULL,
+  `email_admin` varchar(25) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `nama_admin` varchar(25) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `level_admin` varchar(25) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `img_admin` blob NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -56,10 +56,10 @@ INSERT INTO `admin` (`id_admin`, `email_admin`, `nama_admin`, `password`, `level
 --
 
 CREATE TABLE `tb_anggota` (
-  `id_anggota` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
-  `nama` varchar(30) COLLATE utf8mb4_general_ci NOT NULL,
-  `noTelpon` varchar(15) COLLATE utf8mb4_general_ci NOT NULL,
-  `email` varchar(30) COLLATE utf8mb4_general_ci NOT NULL
+  `id_anggota` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `nama` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `noTelpon` varchar(15) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `email` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -68,10 +68,10 @@ CREATE TABLE `tb_anggota` (
 
 INSERT INTO `tb_anggota` (`id_anggota`, `nama`, `noTelpon`, `email`) VALUES
 ('AGT002', 'gastin alfiansa', '7777777777777', 'gastin@gmail.com'),
-('AGT003', 'tes 123', '7777777777777', '7777@gmail.com'),
+('AGT003', 'tes 1234', '7777777777777', '7777@gmail.com'),
 ('AGT004', 'tes 1236666', '000000000', '77770000@gmail.com'),
 ('AGT005', 'gastin alfiansa111', '1111111111111', '11111111@gmail.com'),
-('AGT006', 'brody', '012345678910', 'brody@gmail.com');
+('AGT006', 'brody123', '012345678910', 'brody@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -80,14 +80,14 @@ INSERT INTO `tb_anggota` (`id_anggota`, `nama`, `noTelpon`, `email`) VALUES
 --
 
 CREATE TABLE `tb_pembayaran` (
-  `id_pembayaran` varchar(15) NOT NULL,
-  `id_anggota` varchar(15) NOT NULL,
-  `nama` varchar(255) NOT NULL,
+  `id_pembayaran` varchar(15) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `id_anggota` varchar(15) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `nama` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `id_pertemuan` int NOT NULL,
   `tanggal` date NOT NULL,
-  `status_pembayaran` varchar(255) NOT NULL,
-  `bukti` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `status_pembayaran` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `bukti` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data untuk tabel `tb_pembayaran`
@@ -95,8 +95,12 @@ CREATE TABLE `tb_pembayaran` (
 
 INSERT INTO `tb_pembayaran` (`id_pembayaran`, `id_anggota`, `nama`, `id_pertemuan`, `tanggal`, `status_pembayaran`, `bukti`) VALUES
 ('BYR001', 'AGT002', 'gastin alfiansa', 240512001, '2024-05-12', 'Lunas', 'uploads/1111 (1).jpg'),
-('BYR002', 'AGT006', 'brody', 240512001, '2024-05-12', 'Lunas', 'uploads/Follow_ @elegant_ee.jpg'),
-('BYR003', 'AGT006', 'brody', 240513004, '2024-04-28', 'Lunas', 'uploads/1111 (1).jpg');
+('BYR002', 'AGT006', 'brody123', 240512001, '2024-05-12', 'Lunas', 'uploads/Follow_ @elegant_ee.jpg'),
+('BYR003', 'AGT006', 'brody123', 240513004, '2024-03-28', 'Belum Lunas', 'uploads/1111 (1).jpg'),
+('BYR004', 'AGT004', 'tes 1236666', 240512001, '2024-05-12', 'Belum Lunas', 'uploads/Follow_ @elegant_ee.jpg'),
+('BYR005', 'AGT005', 'gastin alfiansa111', 240512001, '2024-05-12', 'Belum Lunas', 'uploads/logo-login-removebg-preview.jpg'),
+('BYR006', 'AGT002', 'gastin alfiansa', 240601006, '2024-06-01', 'Lunas', 'uploads/download.jpg'),
+('BYR007', 'AGT006', 'brody123', 240601006, '2024-06-01', 'Belum Lunas', 'uploads/Follow_ @elegant_ee.jpg');
 
 -- --------------------------------------------------------
 
@@ -106,9 +110,9 @@ INSERT INTO `tb_pembayaran` (`id_pembayaran`, `id_anggota`, `nama`, `id_pertemua
 
 CREATE TABLE `tb_pertemuan` (
   `id_pertemuan` int NOT NULL,
-  `lokasi` varchar(40) COLLATE utf8mb4_general_ci NOT NULL,
+  `lokasi` varchar(40) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `tanggal` date NOT NULL,
-  `jam` varchar(15) COLLATE utf8mb4_general_ci NOT NULL
+  `jam` varchar(15) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -119,8 +123,9 @@ INSERT INTO `tb_pertemuan` (`id_pertemuan`, `lokasi`, `tanggal`, `jam`) VALUES
 (240512001, 'rumah abc', '2024-05-12', 'jam 7 malam'),
 (240512002, 'rumah abcdef', '2024-06-08', 'jam 8 malam'),
 (240512003, 'rumah abcccw', '2024-07-13', 'jam 7 malam'),
-(240513004, 'rumah abccc', '2024-04-28', 'jam 7 malam'),
-(240525005, 'rumah brody', '2024-05-25', 'jam 7 malam');
+(240513004, 'rumah abccc', '2024-03-28', 'jam 7 malam'),
+(240525005, 'rumah brody', '2024-05-25', 'jam 7 malam'),
+(240601006, 'rumah abc', '2024-06-01', 'jam 7 malam');
 
 --
 -- Indexes for dumped tables
