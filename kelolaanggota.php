@@ -186,15 +186,15 @@ $level_admin = $_SESSION['level_admin'];
                                             <div class="modal-body">
                                                 <div class="mb-3">
                                                     <label for="exampleFormControlInput1" class="form-label">Nama</label>
-                                                    <input type="text" class="form-control" id="exampleFormControlInput1" name="tnama" placeholder="Masukkan Nama">
+                                                    <input type="text" class="form-control" id="exampleFormControlInput1" name="tnama" placeholder="Masukkan Nama" required>
                                                 </div>
                                                 <div class="mb-3">
                                                     <label for="exampleFormControlInput1" class="form-label">Nomor Telepon</label>
-                                                    <input type="text" class="form-control" id="exampleFormControlInput1" name="tnotelp" placeholder="Masukkan No.Telpon">
+                                                    <input type="text" class="form-control" id="exampleFormControlInput1" name="tnotelp" placeholder="Masukkan No.Telpon" required>
                                                 </div>
                                                 <div class="mb-3">
                                                     <label for="exampleFormControlInput1" class="form-label">Email</label>
-                                                    <input type="email" class="form-control" id="exampleFormControlInput1" name="temail" placeholder="Masukkan Email">
+                                                    <input type="email" class="form-control" id="exampleFormControlInput1" name="temail" placeholder="Masukkan Email" required>
                                                 </div>
                                             </div>
                                             <div class="modal-footer">
@@ -265,15 +265,15 @@ $level_admin = $_SESSION['level_admin'];
                                                     <div class="modal-body">
                                                         <div class="mb-3">
                                                             <label for="exampleFormControlInput1" class="form-label">Nama</label>
-                                                            <input type="text" class="form-control" id="exampleFormControlInput1" name="tnama" value="<?php echo $data['nama'] ?>" placeholder="Masukkan Nama">
+                                                            <input type="text" class="form-control" id="exampleFormControlInput1" name="tnama" value="<?php echo $data['nama'] ?>" placeholder="Masukkan Nama" required>
                                                         </div>
                                                         <div class="mb-3">
                                                             <label for="exampleFormControlInput1" class="form-label">Nomor Telepon</label>
-                                                            <input type="text" class="form-control" id="exampleFormControlInput1" name="tnotelp"value="<?php echo $data['noTelpon'] ?>" placeholder="Masukkan No.Telpon">
+                                                            <input type="text" class="form-control" id="exampleFormControlInput1" name="tnotelp"value="<?php echo $data['noTelpon'] ?>" placeholder="Masukkan No.Telpon" required>
                                                         </div>
                                                         <div class="mb-3">
                                                             <label for="exampleFormControlInput1" class="form-label">Email</label>
-                                                            <input type="email" class="form-control" id="exampleFormControlInput1" name="temail" value="<?php echo $data['email'] ?>" placeholder="Masukkan Email">
+                                                            <input type="email" class="form-control" id="exampleFormControlInput1" name="temail" value="<?php echo $data['email'] ?>" placeholder="Masukkan Email" required>
                                                         </div>
                                                     </div>
                                                     <div class="modal-footer">

@@ -190,7 +190,7 @@ $result_anggota = mysqli_query($koneksi, $query_anggota);
                                 </div>
                                 <div class="mb-3">
                                     <label for="bukti" class="form-label">Bukti Pembayaran</label>
-                                    <input type="file" name="bukti" id="bukti" class="form-control" accept="image/*" required>
+                                    <input type="file" name="bukti" id="bukti" class="form-control" accept="image/*">
                                 </div>
                                 <button type="submit" class="btn btn-primary">
                                     <i class="fas fa-save"></i> Simpan
