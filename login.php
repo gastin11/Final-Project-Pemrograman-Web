@@ -63,7 +63,7 @@ if(isset($_POST["login"])){
 				<div class="col-xxl-4 col-xl-5 col-lg-5 col-md-7 col-sm-9">
 					<div class="text-center my-5">
 						<img src="asset-login/logo-login.png" alt="logo" width="100">
-						<h1 class="fs-4 card-title fw-bold mt-2">Website Arisan</h1>
+						<h1 class="fs-4 card-title fw-bold mt-2">Login di SiArisan</h1>
 					</div>
 					<div class="card shadow-lg">
 						<div class="card-body p-5">

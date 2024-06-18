@@ -8,11 +8,16 @@ use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 $spreadsheet = new Spreadsheet();
 $sheet = $spreadsheet->getActiveSheet();
 
-$sheet->setCellValue('A1', 'No');
-$sheet->setCellValue('B1', 'ID');
-$sheet->setCellValue('C1', 'NAMA');
-$sheet->setCellValue('D1', 'TANGGAL');
-$sheet->setCellValue('E1', 'STATUS PEMBAYARAN');
+$sheet->setCellValue('A1', 'Laporan Pembayaran');
+$sheet->mergeCells('A1:E1'); 
+$sheet->getStyle('A1')->getFont()->setBold(true); 
+$sheet->getStyle('A1')->getFont()->setSize(18); 
+
+$sheet->setCellValue('A2', 'No');
+$sheet->setCellValue('B2', 'ID');
+$sheet->setCellValue('C2', 'NAMA');
+$sheet->setCellValue('D2', 'TANGGAL');
+$sheet->setCellValue('E2', 'STATUS PEMBAYARAN');
 
 if (isset($_POST['ttanggal'])) {
     $ttanggal = $_POST['ttanggal'];
@@ -22,7 +27,7 @@ if (isset($_POST['ttanggal'])) {
     $data = mysqli_query($koneksi, "SELECT * FROM tb_pembayaran WHERE MONTH(tanggal) = '$month' AND YEAR(tanggal) = '$year'");
 }
 
-$i = 2;
+$i = 3;
 $no = 1;
 while($d = mysqli_fetch_array($data))
 {

@@ -16,7 +16,6 @@ window.addEventListener('DOMContentLoaded', event => {
 
 });
 
-//kalender
     // Fungsi untuk membuat kalender
     function createCalendar(year, month) {
         // Array untuk nama-nama bulan

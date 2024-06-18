@@ -48,7 +48,7 @@ $level_admin = $_SESSION['level_admin'];
             <!-- Navbar Brand-->
             <a class="navbar-brand ps-3 d-flex align-items-center" href="dashboard.php">
                 <img src="./assets-dashboard/img/logo.jpg" alt="Logo" class="rounded-circle me-2" width="40" height="40">
-                Arisan PKK
+                SiArisan
             </a>            
             <!-- Sidebar Toggle-->
             <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
@@ -153,9 +153,14 @@ $level_admin = $_SESSION['level_admin'];
                         
                         <div class="card mb-4">
                             <div class="card-body">
-                                <h5 class="mb-4">Cetak laporan pertemuan</h5>
-                                <a href="./pertemuan_excel.php" target="_blank" class="btn btn-success"><i class="fas fa-file-excel"></i> &nbsp Excel</a>
-                                <a href="pertemuan_pdf.php" class="btn btn-danger"><i class="fas fa-file-pdf"></i> &nbsp PDF</a>
+                                <h5 class="mb-4">Cetak laporan pembayaran</h5>
+                                <form id="laporanForm" method="post">
+                                    <label for="exampleFormControlInput1" class="form-label">Pilih Tahun</label>
+                                    <input type="number" class="form-control mb-4" id="exampleFormControlInput1" name="ttahun" required>
+                                    <button type="button" class="btn btn-success" onclick="submitForm('pertemuan_excel.php')"><i class="fas fa-file-excel"></i> &nbsp Excel</button>
+                                    <button type="button" class="btn btn-danger" onclick="submitForm('pertemuan_pdf.php')"><i class="fas fa-file-pdf"></i> &nbsp PDF</button>
+                                </form>
+
                             </div>
                         </div>
                     </div>
@@ -171,4 +176,12 @@ $level_admin = $_SESSION['level_admin'];
         </div>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
         <script src="assets-dashboard/js/scripts.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2
+        <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2"></script>
+        <script>
+            function submitForm(action) {
+                document.getElementById('laporanForm').action = action;
+                document.getElementById('laporanForm').submit();
+            }
+        </script>
+    </body>
+</html>

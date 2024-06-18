@@ -14,36 +14,42 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet"/>
         <link rel="icon" type="image/x-icon" href="./asset-login/logo-login.png">
 
-        
+        <link href="./asset-homepage/css/style.css" rel="stylesheet">
+
     </head>
     <body class="d-flex flex-column h-100">
         <main class="flex-shrink-0">
             <!-- Navigation-->
-            <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
                 <div class="container px-5">
-                    <a class="navbar-brand" href="index.html">Web Arisan PKK</a>
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <a class="navbar-brand d-flex align-items-center" href="index.html">
+                        <img src="./assets-dashboard/img/logo.jpg" alt="Logo" class="rounded-circle me-2" style="width: 40px; height: 40px;">
+                        SiArisan
+                    </a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse text-white" id="navbarSupportedContent">
                         <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                            <li class="nav-item"><a class="nav-link" href="index.html">Beranda</a></li>
-                            <li class="nav-item"><a class="nav-link" href="#about">Tentang</a></li>
-                            <li class="nav-item"><a class="nav-link" href="#documentation">Dokumentasi</a></li>
-                            <li class="nav-item"><a class="nav-link" href="#contact">Kontak</a></li>
-                            <li class="nav-item"><a class="nav-link" href="login.php">Login</a></li>
+                            <li class="nav-item"><a class="nav-link text-white" href="index.php">Beranda</a></li>
+                            <li class="nav-item"><a class="nav-link text-white" href="#about">Tentang</a></li>
+                            <li class="nav-item"><a class="nav-link text-white" href="#fitur">Fitur</a></li>
+                            <li class="nav-item"><a class="nav-link text-white" href="#contact">Kontak</a></li>
+                            <li class="nav-item"><a class="nav-link text-white" href="login.php">Login</a></li>
                         </ul>
                     </div>
                 </div>
             </nav>
             <!-- Header-->
-            <header class="bg-dark py-5">
+            <header class="bg-primary py-5">
                 <div class="container px-5">
                     <div class="row gx-5 align-items-center justify-content-center">
                         <div class="col-lg-8 col-xl-7 col-xxl-6">
                             <div class="my-5 text-center text-xl-start">
-                                <h1 class="display-5 fw-bolder text-white mb-2">Website Arisan PKK Desa Wage</h1>
-                                <p class="lead fw-normal text-white-50 mb-4">Website sistem informasi arisan yang dirancang untuk membantu mengelola sistem arisan</p>
+                                <h1 class="display-5 fw-bolder text-white mb-2">SiArisan, Sistem Informasi Arisan Desa Wage</h1>
+                                <p class="lead fw-normal text-white mb-4">Sistem informasi berbasis website arisan Desa Wage RT 03 RW 10, yang dirancang untuk membantu mengelola sistem arisan</p>
                                 <div class="d-grid gap-3 d-sm-flex justify-content-sm-center justify-content-xl-start">
-                                    <a class="btn btn-primary btn-lg px-4 me-sm-3" href="login.php">Mulai</a>
+                                    <a class="btn btn-light btn-lg px-4 me-sm-3 text-primary" href="login.php">Mulai</a>
                                     <!-- <a class="btn btn-outline-light btn-lg px-4" href="#!">Learn More</a> -->
                                 </div>
                             </div>
@@ -52,90 +58,73 @@
                     </div>
                 </div>
             </header>
-            <!-- Features section-->
-            <!-- <section class="py-5" id="features">
-                <div class="container px-5 my-5">
-                    <div class="row gx-5">
-                        <div class="col-lg-4 mb-5 mb-lg-0"><h2 class="fw-bolder mb-0">A better way to start building.</h2></div>
-                        <div class="col-lg-8">
-                            <div class="row gx-5 row-cols-1 row-cols-md-2">
-                                <div class="col mb-5 h-100">
-                                    <div class="feature bg-primary bg-gradient text-white rounded-3 mb-3"><i class="bi bi-collection"></i></div>
-                                    <h2 class="h5">Featured title</h2>
-                                    <p class="mb-0">Paragraph of text beneath the heading to explain the heading. Here is just a bit more text.</p>
-                                </div>
-                                <div class="col mb-5 h-100">
-                                    <div class="feature bg-primary bg-gradient text-white rounded-3 mb-3"><i class="bi bi-building"></i></div>
-                                    <h2 class="h5">Featured title</h2>
-                                    <p class="mb-0">Paragraph of text beneath the heading to explain the heading. Here is just a bit more text.</p>
-                                </div>
-                                <div class="col mb-5 mb-md-0 h-100">
-                                    <div class="feature bg-primary bg-gradient text-white rounded-3 mb-3"><i class="bi bi-toggles2"></i></div>
-                                    <h2 class="h5">Featured title</h2>
-                                    <p class="mb-0">Paragraph of text beneath the heading to explain the heading. Here is just a bit more text.</p>
-                                </div>
-                                <div class="col h-100">
-                                    <div class="feature bg-primary bg-gradient text-white rounded-3 mb-3"><i class="bi bi-toggles2"></i></div>
-                                    <h2 class="h5">Featured title</h2>
-                                    <p class="mb-0">Paragraph of text beneath the heading to explain the heading. Here is just a bit more text.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section> -->
+            
             <!-- about section-->
             <section id="about" class="py-5">
                 <div class="container">
                     <div class="row justify-content-center">
                         <div class="col-md-8">
                             <div class="text-center">
-                                <h2 class="fw-bolder">Tentang</h2>
-                                <p class="lead fw-normal text-muted mb-5">Website Arisan PKK merupakan platform digital yang memungkinkan anggota PKK untuk terhubung secara online, membagikan informasi terkait arisan, mengakses jadwal arisan, dan berinteraksi dengan anggota lainnya melalui fitur komunikasi yang disediakan.</p>
+                                <h2 class="fw-bolder text-primary"><i class="bi bi-info-circle me-2"></i>Tentang</h2>
+                                <p class="lead fw-normal text-muted mb-5">Website SiArisan adalah platform digital yang dirancang untuk memudahkan pengelolaan dan partisipasi dalam kegiatan arisan, seperti mengelola anggota arisan, melihat jadwal arisan, mencatat keuangan, dan mencetak laporan. SiArisan memberikan solusi terbaik untuk transparansi dan kemudahan dalam pengelolaan arisan.</p>
                             </div>
                         </div>
                     </div>
                 </div>
             </section>
-            <!-- section dokumentasi-->
-            <section id="documentation" class="py-5">
-                <div class="container px-5 my-5">
-                    <div class="row gx-5 justify-content-center">
-                        <div class="col-lg-8 col-xl-6">
-                            <div class="text-center">
-                                <h2 class="fw-bolder">Dokumentasi</h2>
-                                <p class="lead fw-normal text-muted mb-5">Dokumentasi kegiatan arisan PKK RT 03 RW 10 Desa Wage Taman Sidoarjo</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row gx-5">
-                        <div class="col-lg-4 mb-5">
-                            <div class="card h-100 shadow border-0">
-                                <img class="card-img-top" src="asset-homepage/img/img2.jpg" alt="..." />
-                                <div class="card-body p-4">
-                                    <!-- <div class="badge bg-primary bg-gradient rounded-pill mb-2">News</div> -->
-                                    <a class="text-decoration-none link-dark stretched-link" href="#!"><h5 class="card-title mb-3">Arisan di rumah ibu ......</h5></a>
-                                    <p class="card-text mb-0">Pada hari minggu tanggal 28 April 2024</p>
+
+
+            <!-- Features section-->
+            <section class="bg-light py-3 py-md-5 py-xl-8" id="fitur">
+                <div class="container overflow-hidden">
+                    <div class="row gy-4 gy-md-5 gy-lg-0 align-items-center">
+                        <div class="col-12 col-lg-5">
+                            <div class="row">
+                                <div class="col-12 col-xl-11">
+                                    <h2 class="fw-bolder text-primary"><i class="bi bi-stars me-2"></i>Fitur</h2>
+                                    <h3 class="fs-6 text-secondary mb-3 mb-xl-4 text-uppercase">Apa Yang Kami Tawarkan?</h3>
+                                    <h2 class="display-5 mb-3 mb-xl-4">Kami memberikan solusi terbaik untuk kebutuhan arisan Anda.</h2>
+                                    <p class="mb-3 mb-xl-4">Layanan lengkap kami dirancang untuk memenuhi setiap kebutuhan Anda dan membantu Anda berkembang dalam dunia arisan yang dinamis. Hubungi kami hari ini untuk memulai perjalanan pertumbuhan, inovasi, dan dukungan yang tiada tanding. Kesuksesan Anda adalah prioritas kami.</p>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-4 mb-5">
-                            <div class="card h-100 shadow border-0">
-                                <img class="card-img-top" src="asset-homepage/img/img2.jpg" alt="..." />
-                                <div class="card-body p-4">
-                                    <!-- <div class="badge bg-primary bg-gradient rounded-pill mb-2">News</div> -->
-                                    <a class="text-decoration-none link-dark stretched-link" href="#!"><h5 class="card-title mb-3">Arisan di rumah ibu ......</h5></a>
-                                    <p class="card-text mb-0">Pada hari minggu tanggal 28 April 2024</p>
+                        <div class="col-12 col-lg-7 overflow-hidden">
+                            <div class="row gy-4">
+                                <div class="col-12 col-sm-6">
+                                    <div class="card border-0 border-bottom border-primary shadow-sm">
+                                        <div class="card-body text-center p-4 p-xxl-5">
+                                            <i class="bi bi-calendar3 text-primary mb-4" style="font-size: 2rem;"></i>
+                                            <h4 class="mb-4">Pengelolaan Jadwal</h4>
+                                            <p class="mb-4 text-secondary">Kami membantu Anda mengatur dan mengelola jadwal arisan dengan mudah, memastikan setiap anggota dapat mengakses informasi terkini.</p>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 mb-5">
-                            <div class="card h-100 shadow border-0">
-                                <img class="card-img-top" src="asset-homepage/img/img2.jpg" alt="..." />
-                                <div class="card-body p-4">
-                                    <!-- <div class="badge bg-primary bg-gradient rounded-pill mb-2">News</div> -->
-                                    <a class="text-decoration-none link-dark stretched-link" href="#!"><h5 class="card-title mb-3">Arisan di rumah ibu ......</h5></a>
-                                    <p class="card-text mb-0">Pada hari minggu tanggal 28 April 2024</p>
+                                <div class="col-12 col-sm-6">
+                                    <div class="card border-0 border-bottom border-primary shadow-sm">
+                                        <div class="card-body text-center p-4 p-xxl-5">
+                                            <i class="bi bi-people text-primary mb-4" style="font-size: 2rem;"></i>
+                                            <h4 class="mb-4">Manajemen Anggota</h4>
+                                            <p class="mb-4 text-secondary">Kelola informasi anggota dengan efisien, termasuk data pribadi dan kontribusi arisan, semua dalam satu platform yang terintegrasi.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-6">
+                                    <div class="card border-0 border-bottom border-primary shadow-sm">
+                                        <div class="card-body text-center p-4 p-xxl-5">
+                                            <i class="bi bi-cash-coin text-primary mb-4" style="font-size: 2rem;"></i>
+                                            <h4 class="mb-4">Pencatatan Keuangan</h4>
+                                            <p class="mb-4 text-secondary">Fitur pencatatan keuangan yang lengkap untuk memantau arus kas arisan, memastikan transparansi dan akuntabilitas.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-6">
+                                    <div class="card border-0 border-bottom border-primary shadow-sm">
+                                        <div class="card-body text-center p-4 p-xxl-5">
+                                            <i class="bi bi-file-earmark-text text-primary mb-4" style="font-size: 2rem;"></i>
+                                            <h4 class="mb-4">Dokumentasi Laporan</h4>
+                                            <p class="mb-4 text-secondary">Fitur dokumentasi laporan memungkinkan Anda membuat dan menyimpan laporan arisan secara terperinci dan mudah diakses.</p>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -143,12 +132,13 @@
                 </div>
             </section>
 
+
             <!-- contact session -->
             <section id="contact" class="py-5">
                 <div class="container">
                     <div class="row justify-content-center text-center mb-3 mb-lg-5">
                         <div class="col-lg-8 col-xxl-7">
-                            <h2 class="fw-bolder">Kontak</h2>
+                            <h2 class="fw-bolder text-primary"><i class="bi bi-envelope me-2"></i>Kontak</h2>
                         </div>
                     </div>
                     <div class="row">
@@ -195,7 +185,7 @@
             <!--  -->
         </main>
         <!-- Footer-->
-        <footer class="bg-dark py-4 mt-auto">
+        <footer class="bg-primary py-4 mt-auto">
             <div class="container px-5">
                 <div class="row align-items-center justify-content-center flex-column flex-sm-row">
                     <div class="col-auto"><div class="small m-0 text-white">Copyright &copy; Kelompok 1 Paralel F 2024</div></div>
@@ -209,16 +199,10 @@
                 </div>
             </div>
         </footer>
-        <!-- js bootstrap -->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-        <!-- JS-->
-        <script>
-            function kirimPesanWA(){
-                const urlToWA = `https://wa.me/6285714775537?text=Permisi, Saya ${nama.value}, ${pesan.value}`;
-                window.open(urlToWA, "_blank");
-                nama.value = '';
-                pesan.value = '';
-            }
-            </script>            
+
+        <!-- Javascript -->
+        <script src="asset-homepage/js/kirimWA.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXlHj1/8rQsDZ7qqT57dUVgRhz09xF4pGpH1xZPtA6kM6v9KKJv0WLYZllhK" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhG0Z2yzr4h3LkE21Ad4t4LOCFnVD2BcpH+M9czM+UmFb8v+I5PBwZJp+0t" crossorigin="anonymous"></script>
     </body>
 </html>

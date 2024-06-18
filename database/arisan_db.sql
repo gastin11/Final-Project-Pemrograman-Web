@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Waktu pembuatan: 04 Jun 2024 pada 09.30
+-- Waktu pembuatan: 18 Jun 2024 pada 15.03
 -- Versi server: 8.0.30
 -- Versi PHP: 8.1.10
 
@@ -71,7 +71,8 @@ INSERT INTO `tb_anggota` (`id_anggota`, `nama`, `noTelpon`, `email`) VALUES
 ('AGT003', 'tes 1234', '7777777777777', '7777@gmail.com'),
 ('AGT004', 'tes 1236666', '000000000', '77770000@gmail.com'),
 ('AGT005', 'gastin alfiansa111', '1111111111111', '11111111@gmail.com'),
-('AGT006', 'brody123', '012345678910', 'brody@gmail.com');
+('AGT006', 'brody123', '012345678910', 'brody@gmail.com'),
+('AGT007', 'zzz', '999999', 'www@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -99,8 +100,12 @@ INSERT INTO `tb_pembayaran` (`id_pembayaran`, `id_anggota`, `nama`, `id_pertemua
 ('BYR003', 'AGT006', 'brody123', 240513004, '2024-03-28', 'Belum Lunas', 'uploads/1111 (1).jpg'),
 ('BYR004', 'AGT004', 'tes 1236666', 240512001, '2024-05-12', 'Belum Lunas', 'uploads/Follow_ @elegant_ee.jpg'),
 ('BYR005', 'AGT005', 'gastin alfiansa111', 240512001, '2024-05-12', 'Belum Lunas', 'uploads/logo-login-removebg-preview.jpg'),
-('BYR006', 'AGT002', 'gastin alfiansa', 240601006, '2024-06-01', 'Lunas', 'uploads/download.jpg'),
-('BYR007', 'AGT006', 'brody123', 240601006, '2024-06-01', 'Belum Lunas', 'uploads/Follow_ @elegant_ee.jpg');
+('BYR006', 'AGT002', 'gastin alfiansa', 240613007, '2024-06-13', 'Lunas', 'uploads/logo_upn-removebg-preview (1).png'),
+('BYR007', 'AGT003', 'tes 1234', 240613007, '2024-06-13', 'Lunas', ''),
+('BYR008', 'AGT004', 'tes 1236666', 240613007, '2024-06-13', 'Belum Lunas', ''),
+('BYR009', 'AGT005', 'gastin alfiansa111', 240613007, '2024-06-13', 'Belum Lunas', ''),
+('BYR010', 'AGT006', 'brody123', 240613007, '2024-06-13', 'Belum Lunas', ''),
+('BYR011', 'AGT007', 'zzz', 240613007, '2024-06-13', 'Lunas', 'uploads/Follow_ @elegant_ee.jpg');
 
 -- --------------------------------------------------------
 
@@ -125,7 +130,8 @@ INSERT INTO `tb_pertemuan` (`id_pertemuan`, `lokasi`, `tanggal`, `jam`) VALUES
 (240512003, 'rumah abcccw', '2024-07-13', 'jam 7 malam'),
 (240513004, 'rumah abccc', '2024-03-28', 'jam 7 malam'),
 (240525005, 'rumah brody', '2024-05-25', 'jam 7 malam'),
-(240601006, 'rumah abc', '2024-06-01', 'jam 7 malam');
+(240601006, 'rumah abc', '2024-06-01', 'jam 7 malam'),
+(240613007, 'rumah brody', '2024-06-13', 'jam 7 malam');
 
 --
 -- Indexes for dumped tables

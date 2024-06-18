@@ -48,7 +48,7 @@ $level_admin = $_SESSION['level_admin'];
             <!-- Navbar Brand-->
             <a class="navbar-brand ps-3 d-flex align-items-center" href="dashboard.php">
                 <img src="./assets-dashboard/img/logo.jpg" alt="Logo" class="rounded-circle me-2" width="40" height="40">
-                Arisan PKK
+                SiArisan
             </a>            
             <!-- Sidebar Toggle-->
             <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>

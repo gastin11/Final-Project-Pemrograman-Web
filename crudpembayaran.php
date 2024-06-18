@@ -2,10 +2,8 @@
 include_once("koneksi.php");
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    if (isset($_POST['id_pertemuan'], $_POST['id_anggota'], $_POST['status_pembayaran']) && !empty($_FILES["bukti"]["name"])) {
+    if (isset($_POST['id_pertemuan'])) {
         $id_pertemuan = $_POST['id_pertemuan'];
-        $id_anggota = $_POST['id_anggota'];
-        $status_pembayaran = $_POST['status_pembayaran'];
 
         // Fetch tanggal pertemuan
         $query_tanggal = "SELECT tanggal FROM tb_pertemuan WHERE id_pertemuan = '$id_pertemuan'";
@@ -13,45 +11,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $row_tanggal = mysqli_fetch_assoc($result_tanggal);
         $tanggal = $row_tanggal['tanggal'];
 
-        // Fetch nama anggota
-        $query_nama = "SELECT nama FROM tb_anggota WHERE id_anggota = '$id_anggota'";
-        $result_nama = mysqli_query($koneksi, $query_nama);
-        $row_nama = mysqli_fetch_assoc($result_nama);
-        $nama = $row_nama['nama'];
+        // Mulai transaksi
+        mysqli_begin_transaction($koneksi);
 
-        // Proses upload bukti pembayaran
-        $target_dir = "uploads/";
-        $target_file = $target_dir . basename($_FILES["bukti"]["name"]);
-        $uploadOk = 1;
-        $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+        try {
+            // Dapatkan semua anggota dari tb_anggota
+            $query_anggota = "SELECT id_anggota, nama FROM tb_anggota";
+            $result_anggota = mysqli_query($koneksi, $query_anggota);
 
-        // Periksa apakah file adalah gambar asli atau bukan
-        $check = getimagesize($_FILES["bukti"]["tmp_name"]);
-        if ($check !== false) {
-            $uploadOk = 1;
-        } else {
-            echo "Bukan file gambar";
-            $uploadOk = 0;
-        }
+            // Loop melalui setiap anggota dan simpan ke tb_pembayaran
+            while ($row = mysqli_fetch_assoc($result_anggota)) {
+                $id_anggota = $row['id_anggota'];
+                $nama = $row['nama'];
 
-        // Periksa ukuran file
-        if ($_FILES["bukti"]["size"] > 500000) {
-            echo "Ukuran file terlalu besar";
-            $uploadOk = 0;
-        }
-
-        // Periksa jenis file
-        if ($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "gif") {
-            echo "Format file harus JPG, JPEG, PNG & GIF";
-            $uploadOk = 0;
-        }
-
-        // Periksa apakah uploadOk bernilai 0 karena kesalahan
-        if ($uploadOk == 0) {
-            echo "File tidak bisa diupload";
-        // Jika semua periksa dilalui, coba unggah file
-        } else {
-            if (move_uploaded_file($_FILES["bukti"]["tmp_name"], $target_file)) {
                 // Ambil id_pembayaran terakhir dan buat id_pembayaran baru
                 $query_id = "SELECT MAX(id_pembayaran) AS maxKode FROM tb_pembayaran";
                 $hasil_id = mysqli_query($koneksi, $query_id);
@@ -69,26 +41,30 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                 // Simpan data ke database
                 $query = "INSERT INTO tb_pembayaran (id_pembayaran, id_anggota, nama, id_pertemuan, tanggal, status_pembayaran, bukti) 
-                          VALUES ('$kodejadi', '$id_anggota', '$nama', '$id_pertemuan', '$tanggal', '$status_pembayaran', '$target_file')";
-
-                if (mysqli_query($koneksi, $query)) {
-                    echo "<script>
-                            alert('Pembayaran berhasil disimpan');
-                            document.location.href = 'pembayaran.php';
-                          </script>";
-                } else {
-                    echo "Error: " . $query . "<br>" . mysqli_error($koneksi);
-                }
-            } else {
-                echo "Terjadi kesalahan saat upload";
+                          VALUES ('$kodejadi', '$id_anggota', '$nama', '$id_pertemuan', '$tanggal', 'Belum Lunas', '')";
+                mysqli_query($koneksi, $query);
             }
+
+            mysqli_commit($koneksi);
+
+            echo "<script>
+                    alert('Pembayaran berhasil disimpan');
+                    document.location.href = 'detailpembayaran.php';
+                  </script>";
+
+        } catch (Exception $e) {
+            // Rollback transaksi jika terjadi kesalahan
+            mysqli_rollback($koneksi);
+
+            echo "<script>
+                    alert('Terjadi kesalahan saat menyimpan data pembayaran');
+                    document.location.href = 'pembayaran.php';
+                  </script>";
         }
     } 
-    // else {
-    //     echo "Data tidak lengkap atau file tidak diunggah.";
-    // }
 }
 
+// Logika untuk edit dan hapus data
 if(isset($_POST["btnedit"])){
     $id_pembayaran = $_POST['id_pembayaran'];
     $tanggal = $_POST['ttanggal'];
@@ -147,8 +123,6 @@ if(isset($_POST["btnedit"])){
             </script>";
     }
 }
-
-
 
 if (isset($_POST["btnhapus"])) {
     $hapus = mysqli_query($koneksi, "DELETE FROM tb_pembayaran WHERE id_pembayaran = '$_POST[id_pembayaran]' ");

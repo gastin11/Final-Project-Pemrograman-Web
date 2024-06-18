@@ -1,10 +1,5 @@
 <?php
-
 include_once ("koneksi.php");
-$query= "SELECT * FROM tb_pembayaran";
-$hasil = mysqli_query ($koneksi, $query);
-
-// Mulai session
 session_start();
 
 if (isset($_SESSION['expire_time']) && $_SESSION['expire_time'] < time()) {
@@ -16,7 +11,6 @@ if (isset($_SESSION['expire_time']) && $_SESSION['expire_time'] < time()) {
     $_SESSION['expire_time'] = time() + (5 * 60);
 }
 
-// Periksa apakah session nama_admin telah diset atau belum
 if (!isset($_SESSION['nama_admin'])) {
     echo "<script>
         alert('Lakukan Login Terlebih Dahulu');
@@ -25,10 +19,23 @@ if (!isset($_SESSION['nama_admin'])) {
     exit;
 }
 
-// Ambil level pengguna dari sesi
 $level_admin = $_SESSION['level_admin'];
 
+$start_date = isset($_POST['start_date']) ? $_POST['start_date'] : null;
+$end_date = isset($_POST['end_date']) ? $_POST['end_date'] : null;
+$refresh = isset($_POST['refresh']);
+
+$query = "SELECT * FROM tb_pembayaran";
+
+if ($start_date && $end_date && !$refresh) {
+    $query .= " WHERE tanggal BETWEEN '$start_date' AND '$end_date'";
+}
+
+$query .= " ORDER BY id_pembayaran DESC";
+$hasil = mysqli_query($koneksi, $query);
 ?>
+
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -50,7 +57,7 @@ $level_admin = $_SESSION['level_admin'];
             <!-- Navbar Brand-->
             <a class="navbar-brand ps-3 d-flex align-items-center" href="dashboard.php">
                 <img src="./assets-dashboard/img/logo.jpg" alt="Logo" class="rounded-circle me-2" width="40" height="40">
-                Arisan PKK
+                SiArisan
             </a>
             <!-- Sidebar Toggle-->
             <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
@@ -147,13 +154,13 @@ $level_admin = $_SESSION['level_admin'];
             </div>
             <div id="layoutSidenav_content">
                 <main>
-                <div class="container-fluid px-4">
+                    <div class="container-fluid px-4">
                         <h1 class="mt-4">Detail Pembayaran</h1>
                         <ol class="breadcrumb mb-3">
                             <li class="breadcrumb-item active">Detail Pembayaran</li>
                         </ol>
 
-                        
+
                         <div class="card mb-4">
                             <div class="card-header">
                                 <div class="d-flex justify-content-between align-items-center">
@@ -167,6 +174,24 @@ $level_admin = $_SESSION['level_admin'];
                             
                             <div class="card-body">
                                 <a href="./pembayaran.php" class="btn btn-primary mb-3"><i class="fas fa-plus px-1"></i>Input Pembayaran</a>
+                                
+                                <!-- menampilkan data berdasarkan tanggal -->
+                                <form method="POST" action="">
+                                    <div class="row mb-4">
+                                        <div class="col-md-4">
+                                            <label for="start_date" class="form-label">Tanggal Mulai</label>
+                                            <input type="date" class="form-control" id="start_date" name="start_date">
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label for="end_date" class="form-label">Tanggal Akhir</label>
+                                            <input type="date" class="form-control" id="end_date" name="end_date">
+                                        </div>
+                                        <div class="col-md-4 d-flex align-items-end">
+                                            <button type="submit" class="btn btn-primary me-2"><i class="fas fa-filter me-1"></i>Filter</button>
+                                            <button type="submit" name="refresh" class="btn btn-outline-primary"><i class="fas fa-sync-alt me-1"></i>Refresh</button>
+                                        </div>
+                                    </div>
+                                </form>
                                 <table id="datatablesSimple" class="table table-info table-striped">
                                     <thead>
                                         <tr>
@@ -196,35 +221,34 @@ $level_admin = $_SESSION['level_admin'];
 
                                     </tfoot>                                    
                                     <tbody>
-                                    <?php 
-                                    $no = 1;
-                                    $tampil = mysqli_query($koneksi,"SELECT * FROM tb_pembayaran ORDER BY id_pembayaran");
-                                    while ($data = mysqli_fetch_array($tampil)): 
-                                    ?>
-                                        <tr>
-                                            <td><?php echo $no++ ?></td>
-                                            <td><?php echo $data['id_pembayaran'] ?></td>
-                                            <td><?php echo $data['id_anggota'] ?></td>
-                                            <td><?php echo $data['nama']?></td>
-                                            <td><?php echo $data['id_pertemuan'] ?></td>
-                                            <td><?php echo $data['tanggal'] ?></td>
-                                            <td><?php echo $data['status_pembayaran'] ?></td>
-                                            <td>
-                                                <a href="<?php echo $data['bukti'];?>">
-                                                <img width="120" src="<?php echo $data['bukti'] ?>" alt="<?php echo $data['bukti'] ?>">
-                                                </a>
-                                            </td>
-                                            <td>
-                                                <a href="#" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#modaledit<?php echo $data['id_pembayaran']; ?>">
-                                                    <i class="fas fa-edit"></i> Edit
-                                                </a>
-                                                <a href="#" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalhapus<?php echo $data['id_pembayaran']; ?>">
-                                                    <i class="fas fa-trash-alt"></i> Hapus
-                                                </a>
-                                            </td>
-                                        </tr>
+                                        <?php 
+                                        $no = 1;
+                                        while ($data = mysqli_fetch_array($hasil)): 
+                                        ?>
+                                            <tr>
+                                                <td><?php echo $no++ ?></td>
+                                                <td><?php echo $data['id_pembayaran'] ?></td>
+                                                <td><?php echo $data['id_anggota'] ?></td>
+                                                <td><?php echo $data['nama']?></td>
+                                                <td><?php echo $data['id_pertemuan'] ?></td>
+                                                <td><?php echo $data['tanggal'] ?></td>
+                                                <td><?php echo $data['status_pembayaran'] ?></td>
+                                                <td>
+                                                    <a href="<?php echo $data['bukti'];?>">
+                                                    <img width="120" src="<?php echo $data['bukti'] ?>" alt="<?php echo $data['bukti'] ?>">
+                                                    </a>
+                                                </td>
+                                                <td>
+                                                    <a href="#" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#modaledit<?php echo $data['id_pembayaran']; ?>">
+                                                        <i class="fas fa-edit"></i> Edit
+                                                    </a>
+                                                    <a href="#" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalhapus<?php echo $data['id_pembayaran']; ?>">
+                                                        <i class="fas fa-trash-alt"></i> Hapus
+                                                    </a>
+                                                </td>
+                                            </tr>
 
-                                        <!-- Awal Modal Edit -->
+                                            <!-- Awal Modal Edit -->
                                         <div class="modal fade" id="modaledit<?php echo $data['id_pembayaran']; ?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                                             <div class="modal-dialog modal-dialog-centered">
                                                 <div class="modal-content">
@@ -296,7 +320,7 @@ $level_admin = $_SESSION['level_admin'];
                                         </div>
                                         <!-- AKhir Modal Hapus-->
 
-                                    <?php endwhile; ?>    
+                                        <?php endwhile; ?>    
                                     </tbody>
 
 

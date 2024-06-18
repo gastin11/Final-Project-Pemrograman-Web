@@ -12,7 +12,6 @@ if (isset($_SESSION['expire_time']) && $_SESSION['expire_time'] < time()) {
 
 include_once("koneksi.php");
 
-// Periksa apakah session nama_admin telah diset atau belum
 if (!isset($_SESSION['nama_admin'])) {
     echo "<script>
         alert('Lakukan Login Terlebih Dahulu');
@@ -21,23 +20,15 @@ if (!isset($_SESSION['nama_admin'])) {
     exit;
 }
 
-// Ambil level pengguna dari sesi
 $level_admin = $_SESSION['level_admin'];
 
-// Menghitung jumlah pembayaran berdasarkan bulan saat ini
 $currentMonth = date('m');
 $monthName = date('F');
 $dash_pembayaran_query = "SELECT * FROM tb_pembayaran WHERE MONTH(tanggal) = '$currentMonth'";
 $dash_pembayaran_query_run = mysqli_query($koneksi, $dash_pembayaran_query);
 
-$total_pembayaran = 0;
-if ($total_pembayaran = mysqli_num_rows($dash_pembayaran_query_run)) {
-    $total_pembayaran = mysqli_num_rows($dash_pembayaran_query_run);
-} else {
-    $total_pembayaran = 0;
-}
+$total_pembayaran = mysqli_num_rows($dash_pembayaran_query_run);
 
-// Menghitung jumlah status pembayaran "Lunas" dan "Belum Lunas" bulan ini
 $lunas_query = "SELECT COUNT(*) as count FROM tb_pembayaran WHERE MONTH(tanggal) = '$currentMonth' AND status_pembayaran = 'Lunas'";
 $lunas_result = mysqli_query($koneksi, $lunas_query);
 $lunas_count = mysqli_fetch_assoc($lunas_result)['count'];
@@ -46,7 +37,17 @@ $belum_lunas_query = "SELECT COUNT(*) as count FROM tb_pembayaran WHERE MONTH(ta
 $belum_lunas_result = mysqli_query($koneksi, $belum_lunas_query);
 $belum_lunas_count = mysqli_fetch_assoc($belum_lunas_result)['count'];
 
+$dash_anggota_query = "SELECT * FROM tb_anggota";
+$dash_anggota_query_run = mysqli_query($koneksi, $dash_anggota_query);
+$total_anggota = mysqli_num_rows($dash_anggota_query_run);
+
+$lunas_percentage = $total_anggota > 0 ? ($lunas_count / $total_anggota) * 100 : 0;
+$belum_lunas_percentage = $total_anggota > 0 ? ($belum_lunas_count / $total_anggota) * 100 : 0;
+
+$no_payments = $total_pembayaran == 0;
 ?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -67,7 +68,7 @@ $belum_lunas_count = mysqli_fetch_assoc($belum_lunas_result)['count'];
         <!-- Navbar Brand-->
         <a class="navbar-brand ps-3 d-flex align-items-center" href="dashboard.php">
             <img src="./assets-dashboard/img/logo.jpg" alt="Logo" class="rounded-circle me-2" width="40" height="40">
-            Arisan PKK
+            SiArisan
         </a>       
         <!-- Sidebar Toggle-->
         <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
@@ -312,36 +313,64 @@ $belum_lunas_count = mysqli_fetch_assoc($belum_lunas_result)['count'];
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            const jumlahAnggota = <?php echo $total_anggota; ?>;
-            const lunasCount = <?php echo $lunas_count; ?>;
-            const belumLunasCount = <?php echo $belum_lunas_count; ?>;
+            const noPayments = <?php echo $no_payments ? 'true' : 'false'; ?>;
+            let data;
 
-            const data = {
-                labels: ['Jumlah Anggota', 'Lunas', 'Belum Lunas'],
-                datasets: [{
-                    label: '',
-                    data: [jumlahAnggota, lunasCount, belumLunasCount],
-                    backgroundColor: [
-                        '#FFC436',
-                        '#337CCF',
-                        '#1450A3'
-                    ],
-                    hoverOffset: 4
-                }]
-            };
+            if (noPayments) {
+                data = {
+                    labels: ['Tidak ada pembayaran'],
+                    datasets: [{
+                        label: 'Tidak ada pembayaran',
+                        data: [100],
+                        backgroundColor: ['#1450A3'],
+                        hoverOffset: 4
+                    }]
+                };
+            } else {
+                const lunasPercentage = <?php echo $lunas_percentage; ?>;
+                const belumLunasPercentage = <?php echo $belum_lunas_percentage; ?>;
+
+                data = {
+                    labels: ['Lunas', 'Belum Lunas'],
+                    datasets: [{
+                        label: 'Persentase Pembayaran',
+                        data: [lunasPercentage, belumLunasPercentage],
+                        backgroundColor: [
+                            '#FFC436', 
+                            '#337ccf'  
+                        ],
+                        hoverOffset: 4
+                    }]
+                };
+            }
+
             const config = {
                 type: 'doughnut',
                 data: data,
                 options: {
                     responsive: true,
-                    maintainAspectRatio: false
+                    maintainAspectRatio: false,
+                    plugins: {
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    const label = context.label || '';
+                                    const value = context.raw || 0;
+                                    return label + ': ' + value.toFixed(2) + '%';
+                                }
+                            }
+                        }
+                    }
                 }
             };
+
             const myChart = new Chart(
                 document.getElementById('myChart'),
                 config
             );
         });
     </script>
+
+
 </body>
 </html>

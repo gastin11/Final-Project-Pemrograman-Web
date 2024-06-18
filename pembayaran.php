@@ -26,13 +26,9 @@ if (!isset($_SESSION['nama_admin'])) {
 // Ambil level pengguna dari sesi
 $level_admin = $_SESSION['level_admin'];
 
-// Ambil data pertemuan
-$query_pertemuan = "SELECT id_pertemuan, tanggal FROM tb_pertemuan";
+// Ambil data pertemuan, urutkan berdasarkan tanggal descending
+$query_pertemuan = "SELECT id_pertemuan, tanggal FROM tb_pertemuan ORDER BY tanggal DESC";
 $result_pertemuan = mysqli_query($koneksi, $query_pertemuan);
-
-// Ambil data anggota
-$query_anggota = "SELECT id_anggota, nama FROM tb_anggota";
-$result_anggota = mysqli_query($koneksi, $query_anggota);
 
 ?>
 
@@ -56,7 +52,7 @@ $result_anggota = mysqli_query($koneksi, $query_anggota);
         <!-- Navbar Brand-->
         <a class="navbar-brand ps-3 d-flex align-items-center" href="dashboard.php">
             <img src="./assets-dashboard/img/logo.jpg" alt="Logo" class="rounded-circle me-2" width="40" height="40">
-            Arisan PKK
+            SiArisan
         </a>
         <!-- Sidebar Toggle-->
         <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
@@ -155,42 +151,21 @@ $result_anggota = mysqli_query($koneksi, $query_anggota);
             <main>
                 <div class="container-fluid px-4">
                     <h1 class="mt-4">Pembayaran</h1>
-                    <ol class="breadcrumb mb-4">
+                    <ol class="breadcrumb mb=4">
                         <li class="breadcrumb-item active">Pembayaran</li>
                     </ol>
-
+                    
                     <div class="card mb-4">
                         <div class="card-body">
-                        <form action="./crudpembayaran.php" method="post" enctype="multipart/form-data">
+                            <form action="./crudpembayaran.php" method="post" enctype="multipart/form-data">
                                 <div class="mb-3">
-                                    <label for="id_pertemuan" class="form-label">Tanggal Pertemuan</label>
+                                    <label for="id_pertemuan" class="form-label">Tanggal Pembayaran</label>
                                     <select name="id_pertemuan" id="id_pertemuan" class="form-control" required>
-                                        <option value="">--Pilih Tanggal--</option>
+                                        <option value="">--Pilih Tanggal Pembayaran--</option>
                                         <?php while ($row = mysqli_fetch_assoc($result_pertemuan)): ?>
                                             <option value="<?= $row['id_pertemuan']; ?>"><?= $row['tanggal']; ?></option>
                                         <?php endwhile; ?>
                                     </select>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="id_anggota" class="form-label">Anggota</label>
-                                    <select name="id_anggota" id="id_anggota" class="form-control" required>
-                                        <option value="">--Pilih Anggota--</option>
-                                        <?php while ($row = mysqli_fetch_assoc($result_anggota)): ?>
-                                            <option value="<?= $row['id_anggota']; ?>"><?= $row['id_anggota']; ?> - <?= $row['nama']; ?></option>
-                                        <?php endwhile; ?>
-                                    </select>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="status_pembayaran" class="form-label">Status Pembayaran</label>
-                                    <select name="status_pembayaran" id="status_pembayaran" class="form-control" required>
-                                        <option value="">--Pilih Status Pembayaran--</option>
-                                        <option value="Belum Lunas">Belum Lunas</option>
-                                        <option value="Lunas">Lunas</option>
-                                    </select>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="bukti" class="form-label">Bukti Pembayaran</label>
-                                    <input type="file" name="bukti" id="bukti" class="form-control" accept="image/*">
                                 </div>
                                 <button type="submit" class="btn btn-primary">
                                     <i class="fas fa-save"></i> Simpan
@@ -198,23 +173,25 @@ $result_anggota = mysqli_query($koneksi, $query_anggota);
                                 <a href="./detailpembayaran.php" class="btn btn-outline-primary">
                                     <i class="fas fa-eye"></i> Lihat Detail
                                 </a>
-                        </form>
-
+                            </form>
                         </div>
                     </div>
                 </div>
             </main>
-            <footer class="py-4 bg-light mt-5">
+            <footer class="py-4 bg-light mt-auto">
                 <div class="container-fluid px-4">
-                    <div class="d-flex align-items-center justify-content-center small">
-                        <div class="text-muted">Copyright &copy; Kelompok 1 Paralel F 2024</div>
+                    <div class="d-flex align-items-center justify-content-between small">
+                        <div class="text-muted">Copyright &copy; Arisan PKK 2023</div>
                     </div>
                 </div>
             </footer>
         </div>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
     <script src="assets-dashboard/js/scripts.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js" crossorigin="anonymous"></script>
+    <script src="assets-dashboard/assets/demo/chart-area-demo.js"></script>
+    <script src="assets-dashboard/assets/demo/chart-bar-demo.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
     <script src="assets-dashboard/js/datatables-simple-demo.js"></script>
 </body>
