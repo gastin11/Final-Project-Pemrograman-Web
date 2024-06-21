@@ -28,6 +28,10 @@ if (!isset($_SESSION['nama_admin'])) {
 // Ambil level pengguna dari sesi
 $level_admin = $_SESSION['level_admin'];
 
+// Ambil data anggota
+$query_anggota = "SELECT id_anggota, nama FROM tb_anggota ORDER BY id_anggota DESC";
+$result_anggota = mysqli_query($koneksi, $query_anggota);
+
 ?>
 
 <!DOCTYPE html>
@@ -187,50 +191,18 @@ $level_admin = $_SESSION['level_admin'];
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                             </div>
 
-                                            <form method="POST" action="">
+                                            <form method="POST" action="./crudpertemuan.php">
                                             <div class="modal-body">
-                                            <?php
-                                            // Memeriksa apakah tombol "Simpan" ditekan
-                                            if(isset($_POST["btnsimpan"])) {
-                                                // Memeriksa apakah ada input yang kosong
-                                                if(empty($_POST['tlokasi']) || empty($_POST['ttanggal']) || empty($_POST['tjam'])) {
-                                                    echo '<div class="alert alert-danger" role="alert">
-                                                        Isi semua textbox!
-                                                    </div>';
-                                                } else {
-                                                    $lokasi = $_POST['tlokasi'];
-                                                    $tanggal = $_POST['ttanggal'];
-                                                    $jam = $_POST['tjam'];
-
-                                                    if(isset($_POST["btnsimpan"])){
-                                                        $query_id = "SELECT max(id_pertemuan) as maxKode FROM tb_pertemuan";
-                                                        $hasil_id = mysqli_query($koneksi, $query_id);
-                                                        $data_id = mysqli_fetch_array($hasil_id);
-
-                                                        $maxkode = $data_id['maxKode'];
-                                                        $nourut = (int) substr($maxkode, 6);
-
-                                                        $nourut++;
-                                                        $char = date("ymd");
-                                                        $kodejadi = $char . sprintf("%03s", $nourut);
-
-                                                        $simpan = mysqli_query($koneksi, "INSERT INTO tb_pertemuan (id_pertemuan,lokasi,tanggal,jam) VALUE ('$kodejadi','$lokasi','$tanggal','$jam')");
-
-                                                        if($simpan){
-                                                            echo "<script>
-                                                                    alert('Data berhasil di simpan')
-                                                                    document.location='pertemuan.php';
-                                                                </script>";
-                                                        }else{
-                                                            echo "<script>
-                                                                    alert('Data berhasil di simpan')
-                                                                    document.location='pertemuan.php';
-                                                                </script>";
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                            ?>
+                                        
+                                                <div class="mb-3">
+                                                <label for="id_anggota" class="form-label">Tuan Rumah</label>
+                                                <select name="id_anggota" id="id_anggota" class="form-control" required>
+                                                    <option value="">--Pilih Tuan Rumah--</option>
+                                                    <?php while ($row = mysqli_fetch_assoc($result_anggota)): ?>
+                                                        <option value="<?= $row['nama']; ?>"><?= $row['nama']; ?></option>
+                                                    <?php endwhile; ?>
+                                                </select>
+                                                </div>
                                                 <div class="mb-3">
                                                     <label for="exampleFormControlInput1" class="form-label">Lokasi</label>
                                                     <input type="text" class="form-control" id="exampleFormControlInput1" name="tlokasi" placeholder="Masukkan lokasi pertemuan" required>
@@ -241,7 +213,7 @@ $level_admin = $_SESSION['level_admin'];
                                                 </div>
                                                 <div class="mb-3">
                                                     <label for="exampleFormControlInput1" class="form-label">Jam</label>
-                                                    <input type="text" class="form-control" id="exampleFormControlInput1" name="tjam" placeholder="Masukkan jam pertemuan" required>
+                                                    <input type="time" class="form-control" id="exampleFormControlInput1" name="tjam" placeholder="Masukkan jam pertemuan" required>
                                                 </div>
                                             </div>
                                             <div class="modal-footer">
@@ -281,6 +253,7 @@ $level_admin = $_SESSION['level_admin'];
                                         <tr>
                                             <th>No</th>
                                             <th>ID</th>
+                                            <th>Tuan Rumah</th>
                                             <th>Lokasi</th>
                                             <th>Tanggal</th>
                                             <th>Jam</th>
@@ -291,6 +264,7 @@ $level_admin = $_SESSION['level_admin'];
                                         <tr>
                                             <th>No</th>
                                             <th>ID</th>
+                                            <th>Tuan Rumah</th>
                                             <th>Lokasi</th>
                                             <th>Tanggal</th>
                                             <th>Jam</th>
@@ -307,6 +281,7 @@ $level_admin = $_SESSION['level_admin'];
                                         <tr>
                                             <td><?php echo $no++ ?></td>
                                             <td><?php echo $data['id_pertemuan'] ?></td>
+                                            <td><?php echo $data['tuan_rumah'] ?></td>
                                             <td><?php echo $data['lokasi']?></td>
                                             <td><?php echo date('d-m-Y', strtotime($data['tanggal'])) ?></td>
                                             <td><?php echo $data['jam'] ?></td>
@@ -332,6 +307,20 @@ $level_admin = $_SESSION['level_admin'];
                                                     <form method="POST" action="crudpertemuan.php">
                                                     <input type="hidden" name="id_pertemuan" value="<?php echo $data['id_pertemuan'] ?>">
                                                     <div class="modal-body">
+                                                        <div class="mb-3">
+                                                        <?php
+                                                        $query_anggota = "SELECT id_anggota, nama FROM tb_anggota ORDER BY id_anggota DESC";
+                                                        $result_anggota = mysqli_query($koneksi, $query_anggota);
+                                                        
+                                                        ?>
+                                                            <label for="id_anggota" class="form-label">Tuan Rumah</label>
+                                                            <select name="id_anggota" id="id_anggota" class="form-control" required>
+                                                                <option value="">--Pilih Tuan Rumah--</option>
+                                                                <?php while ($row = mysqli_fetch_assoc($result_anggota)): ?>
+                                                                    <option value="<?= $row['nama']; ?>"><?= $row['nama']; ?></option>
+                                                                <?php endwhile; ?>
+                                                            </select>
+                                                        </div>
                                                         <div class="mb-3">
                                                             <label for="exampleFormControlInput1" class="form-label">Lokasi</label>
                                                             <input type="text" class="form-control" id="exampleFormControlInput1" name="tlokasi" value="<?php echo $data['lokasi'] ?>" placeholder="Masukkan lokasi pertemuan" required>

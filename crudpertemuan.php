@@ -1,6 +1,7 @@
 <?php
 
         include_once("koneksi.php");
+        $tuanrumah = $_POST['id_anggota'];
         $lokasi = $_POST['tlokasi'];
         $tanggal = $_POST['ttanggal'];
         $jam = $_POST['tjam'];
@@ -17,7 +18,7 @@
             $char = date("ymd");
             $kodejadi = $char . sprintf("%03s", $nourut);
 
-            $simpan = mysqli_query($koneksi, "INSERT INTO tb_pertemuan (id_pertemuan,lokasi,tanggal,jam) VALUE ('$kodejadi','$lokasi','$tanggal','$jam')");
+            $simpan = mysqli_query($koneksi, "INSERT INTO tb_pertemuan (id_pertemuan,tuan_rumah,lokasi,tanggal,jam) VALUE ('$kodejadi', '$tuanrumah','$lokasi','$tanggal','$jam')");
 
             if($simpan){
                 echo "<script>
@@ -35,7 +36,7 @@
 
 
         if(isset($_POST["btnedit"])){
-            $edit = mysqli_query($koneksi, "UPDATE tb_pertemuan SET lokasi = '$_POST[tlokasi]', tanggal = '$_POST[ttanggal]', jam = '$_POST[tjam]' WHERE id_pertemuan = '$_POST[id_pertemuan]'");
+            $edit = mysqli_query($koneksi, "UPDATE tb_pertemuan SET tuan_rumah = '$_POST[id_anggota]', lokasi = '$_POST[tlokasi]', tanggal = '$_POST[ttanggal]', jam = '$_POST[tjam]' WHERE id_pertemuan = '$_POST[id_pertemuan]'");
             
             if($edit){
                 echo "<script>

@@ -19,18 +19,18 @@ $sheet->setCellValue('C2', 'NAMA');
 $sheet->setCellValue('D2', 'TANGGAL');
 $sheet->setCellValue('E2', 'STATUS PEMBAYARAN');
 
-if (isset($_POST['ttanggal'])) {
+if (isset($_POST['ttanggal']) && isset($_POST['status_pembayaran'])) {
     $ttanggal = $_POST['ttanggal'];
+    $status_pembayaran = $_POST['status_pembayaran'];
     $month = date('m', strtotime($ttanggal));
     $year = date('Y', strtotime($ttanggal));
     
-    $data = mysqli_query($koneksi, "SELECT * FROM tb_pembayaran WHERE MONTH(tanggal) = '$month' AND YEAR(tanggal) = '$year'");
+    $data = mysqli_query($koneksi, "SELECT * FROM tb_pembayaran WHERE MONTH(tanggal) = '$month' AND YEAR(tanggal) = '$year' AND status_pembayaran = '$status_pembayaran'");
 }
 
 $i = 3;
 $no = 1;
-while($d = mysqli_fetch_array($data))
-{
+while($d = mysqli_fetch_array($data)) {
     $sheet->setCellValue('A'.$i, $no++);
     $sheet->setCellValue('B'.$i, $d['id_pembayaran']);
     $sheet->setCellValue('C'.$i, $d['nama']);
@@ -40,7 +40,7 @@ while($d = mysqli_fetch_array($data))
 }
 
 $writer = new Xlsx($spreadsheet);
-$filename = 'Data_pembayaran_bulan_' . $month . '_' . $year . '.xlsx';
+$filename = 'Data_pembayaran_bulan_' . $month . '_' . $year . '_' . $status_pembayaran . '.xlsx';
 $writer->save($filename);
 
 header('Content-Type: application/vnd.ms-excel');
