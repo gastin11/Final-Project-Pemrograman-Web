@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Waktu pembuatan: 18 Jun 2024 pada 15.03
+-- Waktu pembuatan: 26 Jun 2024 pada 12.33
 -- Versi server: 8.0.30
 -- Versi PHP: 8.1.10
 
@@ -72,7 +72,8 @@ INSERT INTO `tb_anggota` (`id_anggota`, `nama`, `noTelpon`, `email`) VALUES
 ('AGT004', 'tes 1236666', '000000000', '77770000@gmail.com'),
 ('AGT005', 'gastin alfiansa111', '1111111111111', '11111111@gmail.com'),
 ('AGT006', 'brody123', '012345678910', 'brody@gmail.com'),
-('AGT007', 'zzz', '999999', 'www@gmail.com');
+('AGT007', 'zzz', '999999', 'www@gmail.com'),
+('AGT008', 'gif', '022222222222', 'gif@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -115,6 +116,7 @@ INSERT INTO `tb_pembayaran` (`id_pembayaran`, `id_anggota`, `nama`, `id_pertemua
 
 CREATE TABLE `tb_pertemuan` (
   `id_pertemuan` int NOT NULL,
+  `tuan_rumah` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
   `lokasi` varchar(40) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `tanggal` date NOT NULL,
   `jam` varchar(15) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL
@@ -124,14 +126,16 @@ CREATE TABLE `tb_pertemuan` (
 -- Dumping data untuk tabel `tb_pertemuan`
 --
 
-INSERT INTO `tb_pertemuan` (`id_pertemuan`, `lokasi`, `tanggal`, `jam`) VALUES
-(240512001, 'rumah abc', '2024-05-12', 'jam 7 malam'),
-(240512002, 'rumah abcdef', '2024-06-08', 'jam 8 malam'),
-(240512003, 'rumah abcccw', '2024-07-13', 'jam 7 malam'),
-(240513004, 'rumah abccc', '2024-03-28', 'jam 7 malam'),
-(240525005, 'rumah brody', '2024-05-25', 'jam 7 malam'),
-(240601006, 'rumah abc', '2024-06-01', 'jam 7 malam'),
-(240613007, 'rumah brody', '2024-06-13', 'jam 7 malam');
+INSERT INTO `tb_pertemuan` (`id_pertemuan`, `tuan_rumah`, `lokasi`, `tanggal`, `jam`) VALUES
+(240512001, '', 'rumah abc', '2024-05-12', 'jam 7 malam'),
+(240512002, '', 'rumah abcdef', '2024-06-08', 'jam 8 malam'),
+(240512003, '', 'rumah abcccw', '2024-07-13', 'jam 7 malam'),
+(240513004, '', 'rumah abccc', '2024-03-28', 'jam 7 malam'),
+(240525005, '', 'rumah brody', '2024-05-25', 'jam 7 malam'),
+(240601006, '', 'rumah abc', '2024-06-01', 'jam 7 malam'),
+(240613007, '', 'rumah brody', '2024-06-13', 'jam 7 malam'),
+(240619008, 'gastin alfiansa', 'bento', '2024-06-19', '14:55'),
+(240619009, 'gif', 'upn', '2024-06-19', '15:30');
 
 --
 -- Indexes for dumped tables
